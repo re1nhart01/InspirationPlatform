@@ -2,7 +2,6 @@ package chats
 
 import (
 	"firebase.google.com/go/messaging"
-	"fmt"
 	"github.com/gin-gonic/gin"
 	"net/http"
 	"server/database"

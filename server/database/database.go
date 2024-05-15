@@ -36,10 +36,10 @@ func CreateDB() *DB {
 			username     string
 			databaseName string
 		}{
-			dsn:          "root:@tcp(127.0.0.1:3306)/valhalla?charset=utf8mb4&parseTime=True&loc=Local",
+			dsn:          "root:@tcp(127.0.0.1:5432)/valhalla?charset=utf8mb4&parseTime=True&loc=Local",
 			ip:           "127.0.0.1:3306",
-			username:     "evgeniykokaiko",
-			databaseName: "valhalla",
+			username:     "postgres",
+			databaseName: "animetop",
 		},
 	}
 	Data.database, _ = gorm.Open(mysql.Open(Data.config.dsn), &gorm.Config{})

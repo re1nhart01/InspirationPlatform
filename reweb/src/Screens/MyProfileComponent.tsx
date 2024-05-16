@@ -133,34 +133,36 @@ const MyProfileComponent: React.FC<IProps> = (props: IProps) => {
     INavigation.navigate(StackScreens.Following, { userId: (getState.user! as any).username, listType: 0 })
   }
 
+  //getState.user && getState.posts
+  let aboba = true && true
 
-  return getState.user && getState.posts ? (
-  <View style={{height: DEVICE_HEIGHT}}>
-    <ScrollView nestedScrollEnabled style={[StylesOne.screenContainer, MP.ph25]} refreshControl={<RefreshControl refreshing={getState.refresh} onRefresh={makeRequest} />}>
+  return aboba ? (
+  <View style={[{height: DEVICE_HEIGHT}, StylesOne.screenContainer]}>
+    <ScrollView nestedScrollEnabled style={[MP.ph25]} refreshControl={<RefreshControl refreshing={getState.refresh} onRefresh={makeRequest} />}>
       <View style={[StylesOne.w100]}>
         <View style={[StylesOne.flex_column, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
           <Image source={images.logo} style={[StylesOne.image40, { tintColor: 'black' }]} />
-          <Text style={St.ownerTextWithoutOffsets}>{(getState.user! as any).username}</Text>
+          <Text style={St.ownerTextWithoutOffsets}>{(getState.user! as any)?.username}</Text>
         </View>
       </View>
       <View style={[MP.mt20, StylesOne.w100, St.borderRadius30, backgrounds.myProfileBlocks, MP.pv20, MP.ph20]}>
         <View style={[StylesOne.flex_row]}>
           <View style={[MP.mb20]}>
-            <Avatar icon={getState.avatar === 999 ? images.standardAvatar : { uri: `http://${apiURL}/storage/${(getState.user! as any).username}/avatar/avatar.png?asd=${Date.now()}` }} size={60} />
+            <Avatar icon={getState.avatar === 999 ? images.standardAvatar : { uri: `http://${apiURL}/storage/${(getState.user! as any)?.username}/avatar/avatar.png?asd=${Date.now()}` }} size={60} />
           </View>
           <View style={[StylesOne.flex_row, StylesOne.flex_ai_c, { height: mockupHeightToDP(75) }]}>
             <TouchableOpacity onPress={onFollowingPress} style={[MP.mh15, StylesOne.flex_column, StylesOne.flex_ai_c]}>
-              <Text style={St.myAccButtonsHeader}>{getState.counts.subscriber_count}</Text>
+              <Text style={St.myAccButtonsHeader}>{getState.counts?.subscriber_count}</Text>
               <Text style={St.myAccButtonsDescr}>Following</Text>
             </TouchableOpacity>
             <View style={[St.verticalLine]} />
             <TouchableOpacity onPress={onFollowersPress} style={[MP.mh15, StylesOne.flex_column, StylesOne.flex_ai_c]}>
-              <Text style={St.myAccButtonsHeader}>{getState.counts.owner_count}</Text>
+              <Text style={St.myAccButtonsHeader}>{getState?.counts?.owner_count}</Text>
               <Text style={St.myAccButtonsDescr}>Followers</Text>
             </TouchableOpacity>
             <View style={[St.verticalLine]} />
             <View style={[MP.mh15, StylesOne.flex_column, StylesOne.flex_ai_c]}>
-              <Text style={St.myAccButtonsHeader}>{getState.posts.length}</Text>
+              <Text style={St.myAccButtonsHeader}>{getState?.posts?.length}</Text>
               <Text style={St.myAccButtonsDescr}>Posts</Text>
             </View>
           </View>
@@ -169,12 +171,12 @@ const MyProfileComponent: React.FC<IProps> = (props: IProps) => {
           <View style={[St.w240]}>
             <View>
               <Text numberOfLines={1} style={St.myAccName}>
-                {(getState.user as User).full_name}
+                {(getState.user as User)?.full_name}
               </Text>
             </View>
             <View>
               <Text numberOfLines={1} style={St.myAccDescr}>
-                {(getState.user as User).description}
+                {(getState.user as User)?.description}
               </Text>
             </View>
           </View>

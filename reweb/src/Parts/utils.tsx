@@ -16,19 +16,11 @@ export const MOCKUP_HEIGHT = 812;
 
 //Converts dp from mockup to current device
 export const mockupWidthToDP = (mockupWidth: number) => {
-    if (MOCKUP_WIDTH > DEVICE_WIDTH) {
-        return PixelRatio.roundToNearestPixel(mockupWidth * (Math.round((DEVICE_WIDTH / MOCKUP_WIDTH) * 1000) / 1000));
-    } else {
-        return PixelRatio.roundToNearestPixel(mockupWidth * (DEVICE_WIDTH / MOCKUP_WIDTH));
-    }
+   return mockupWidth;
 };
 //1280 x 720
 export const mockupHeightToDP = (mockupHeight: number) => {
-    if (MOCKUP_HEIGHT > DEVICE_HEIGHT) {
-        return PixelRatio.roundToNearestPixel(mockupHeight * (Math.round((DEVICE_HEIGHT / MOCKUP_HEIGHT) * 1000) / 1000));
-    } else {
-        return PixelRatio.roundToNearestPixel(mockupHeight * (DEVICE_HEIGHT / MOCKUP_HEIGHT));
-    }
+    return mockupHeight
 };
 
 export function isIphoneX() {
@@ -51,13 +43,7 @@ export function isIphoneX() {
 }
 
 export function fontSizeDP(fontSize: number, standardScreenHeight = 812) {
-    const { height, width } = Dimensions.get('window');
-    const standardLength = width > height ? width : height;
-    const offset = width > height ? 0 : Platform.OS === 'ios' ? 78 : StatusBar.currentHeight; // iPhone X style SafeAreaView size in portrait
-
-    const deviceHeight = isIphoneX() || Platform.OS === 'android' ? standardLength - offset! : standardLength;
-    const heightPercent = (fontSize * deviceHeight) / standardScreenHeight;
-    return Math.round(heightPercent);
+    return fontSize
 }
 
 

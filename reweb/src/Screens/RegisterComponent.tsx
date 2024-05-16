@@ -84,11 +84,9 @@ const RegisterComponent = (props: IProps) => {
 
     return (
         <View style={StylesOne.flex1}>
-            <ScrollView style={StylesOne.wh_device} scrollEnabled={true} horizontal bounces pagingEnabled ref={(ref) => refSetter(ref)}>
-                {getState.refer !== null && <>
-                    <SignUpComponent pipeState={pipeState as any} scrollToIndex={scrollToIndex} />
-                    <SetupAccountComponent onRegisterPress={onRegisterPress} pipeState={pipeState as any} scrollToIndex={scrollToIndex} />
-                </>}
+            <ScrollView style={{}} ref={(ref) => refSetter(ref)}>
+                    <SignUpComponent pipeState={pipeState as any} scrollToIndex={scrollToIndex} onRegisterPress={onRegisterPress} />
+                    {/*<SetupAccountComponent  pipeState={pipeState as any} scrollToIndex={scrollToIndex} />*/}
             </ScrollView>
         </View>
     )

@@ -85,6 +85,7 @@ export const St = StyleSheet.create({
   },
   postListStyles: {
     width: '100%',
+    height: '170%',
     backgroundColor: colors.WhiteAlice,
     marginTop: mockupHeightToDP(20),
     borderBottomLeftRadius: 0,

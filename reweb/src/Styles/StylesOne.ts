@@ -6,14 +6,19 @@ import { colors } from '../Parts/colors';
 export const safeAreaInsetsTop = Platform.OS === 'ios' ? 20 : 0;
 export const StylesOne = StyleSheet.create({
   screenContainer: {
+    paddingHorizontal: 40,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
     flex: 1,
-    backgroundColor: "#000",
   },
-
-  absolute: {
-    position: 'absolute',
+  absolute: {},
+  flexColCenter: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "space-between",
+    alignItems: 'center',
   },
-
   logoAddition: {
     fontSize: fontSizeDP(24),
     color: colors.SignIn_Font2,
@@ -121,12 +126,20 @@ export const StylesOne = StyleSheet.create({
     fontSize: fontSizeDP(16),
     fontFamily: 'Metropolis-Medium',
     paddingBottom: mockupHeightToDP(20),
+    backgroundColor: colors.SignIn_Font2,
+    marginBottom: 10,
+    padding: 20,
+    borderRadius: 20,
   },
   fontInputText_black: {
     color: colors.SignIn_Font2,
     fontSize: fontSizeDP(16),
     fontFamily: 'Metropolis-Medium',
     paddingBottom: mockupHeightToDP(20),
+    backgroundColor: colors.WhiteAlice,
+    marginBottom: 10,
+    padding: 20,
+    borderRadius: 20,
   },
   fontInputText_dd: {
     color: colors.SignIn_Font2,
@@ -145,7 +158,6 @@ export const StylesOne = StyleSheet.create({
   },
 
   inputContainer: {
-    marginBottom: mockupHeightToDP(32),
     paddingHorizontal: mockupWidthToDP(15),
   },
   SignInButton: {
@@ -335,8 +347,8 @@ export const StylesOne = StyleSheet.create({
   },
 
   whc_img100: {
-    width: '100%',
-    height: '100%',
+    width: 300,
+    height: 300,
     resizeMode: 'contain',
   },
   CheckBox_text: {
@@ -354,7 +366,7 @@ export const StylesOne = StyleSheet.create({
     textDecorationColor: colors.Primary_Red,
   },
   CheckBox_pass: {
-    fontSize: fontSizeDP(10),
+    fontSize: fontSizeDP(20),
     fontFamily: 'Metropolis',
     fontWeight: '800',
     color: colors.myMessageBody,

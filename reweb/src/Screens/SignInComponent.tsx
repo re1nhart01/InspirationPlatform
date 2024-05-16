@@ -29,6 +29,8 @@ const SignInComponent = (props: IProps) => {
   });
 
   const Login = async () => {
+    INavigation.navigate(StackScreens.Home, {});
+    return;
     const username = getState.username;
     const password = getState.password;
     if (username === void 0 || username === null || username === '' || username === ' ') {
@@ -49,15 +51,12 @@ const SignInComponent = (props: IProps) => {
   noGoBack();
   return (
     <View style={[StylesOne.screenContainer, backgrounds.signIn_bg]}>
-      <KeyboardAvoidingComponent>
         <View style={[StylesOne.flex_column, StylesOne.flex_ai_c, MP.mt50]}>
-          <View>
+          <View style={StylesOne.flexColCenter}>
             <Text style={StylesOne.logoAddition}>Welcome to</Text>
-          </View>
-          <View style={MP.mbminus50}>
             <Text style={StylesOne.fontLogo}>Valhalla</Text>
           </View>
-          <View style={StylesOne.wh200px}>
+          <View>
             <Image style={StylesOne.whc_img100} source={images.logo} />
           </View>
         </View>
@@ -99,7 +98,6 @@ const SignInComponent = (props: IProps) => {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingComponent>
     </View>
   );
 };

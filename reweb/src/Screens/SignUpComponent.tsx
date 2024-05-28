@@ -112,8 +112,8 @@ const SignUpComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegiste
     }
 
     return (
-        <View style={[StylesOne.screenContainer]}>
-            <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, MP.mv20, MP.ml20, StylesOne.w100]}>
+        <View style={[StylesOne.screenContainer, MP.pb80]}>
+            <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, MP.mv20, StylesOne.w100]}>
                 <TouchableOpacity onPress={goBack} style={StylesOne.image24}>
                     <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={images.arrowLeft} />
                 </TouchableOpacity>
@@ -124,7 +124,7 @@ const SignUpComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegiste
             </View>
                 <View style={[StylesOne.flex_column, StylesOne.flex_ai_c]}>
                     <View style={MP.mbminus50}>
-                        <Text style={StylesOne.fontLogo_black}>Valhalla</Text>
+                        <Text style={StylesOne.fontLogo_black}>Konoha</Text>
                     </View>
                     <View style={[]}>
                         <Image
@@ -212,7 +212,6 @@ const SignUpComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegiste
                             <Picker.Item style={StylesOne.fontInputText_dd} label="Unrecognized" value="Unrecognized" />
                             <Picker.Item style={StylesOne.fontInputText_dd} label="Digigender" value="Digigender" />
                         </Picker>
-                        <View style={StylesOne.borderBottom} />
                     </View>
                     <View style={[StylesOne.flex_row, StylesOne.flex_ai_c, StylesOne.flex_jc_c]}>
                         <TouchableOpacity onPress={registerUser} style={[StylesOne.SignInButton, StylesOne.shadowRed]}>

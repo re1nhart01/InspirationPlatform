@@ -83,7 +83,7 @@ const MessageOptionsModal = forwardRef<unknown, IProps>(({  onDeleteMessagePress
    async function onCopyPress() {
        if (getState.currentMessage !== null) {
             const message = getState.currentMessage?.messageMapping;
-            await Clipboard.setString(message);
+            await navigator.clipboard.writeText(message);
             // ToastAndroid.show("Copied to clipboard", 2000);
             hide()
        }

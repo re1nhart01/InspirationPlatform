@@ -25,11 +25,11 @@ const AboutUserComponent = () => {
     }
 
     const text = `
-        Hello, this is Valhalla!
+        Hello, this is Konoha!
         Social Media for artists.
         Developed by Kokayko Eugene aka re1nhart
         All rights are reserved.
-         © COPYRIGHT VALHALLA.
+         © COPYRIGHT Konoha.
     `
 
     return (
@@ -47,7 +47,7 @@ const AboutUserComponent = () => {
                             <Text style={StylesOne.logoAddition}>About</Text>
                         </View>
                         <View style={MP.mbminus50}>
-                            <Text style={StylesOne.fontLogo}>Valhalla</Text>
+                            <Text style={StylesOne.fontLogo}>Konoha</Text>
                         </View>
                         <View style={StylesOne.wh200px}>
                             <Image style={StylesOne.whc_img100} source={images.logo} />

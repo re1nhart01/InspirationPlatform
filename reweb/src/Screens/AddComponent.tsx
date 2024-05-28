@@ -19,7 +19,7 @@ type IProps = {};
 type IState = {
   caption: string;
   btnDisabled: boolean;
-  files: Asset[];
+  files: File[];
   isUpdate: number;
   labelText: string;
 };
@@ -36,8 +36,9 @@ const AddComponent: React.FC<IProps> = (props) => {
   });
   //owner, like_id from token on server
 
-  const validatePhotos = (assets: Asset[]): number => {
+  const validatePhotos = (assets: any[]): number => {
     let nonPhotos = 0;
+    console.log(assets)
     // @ts-ignore
     for (let [index, asset] of assets.entries()) {
       if (!asset.type?.includes('image')) {
@@ -48,18 +49,16 @@ const AddComponent: React.FC<IProps> = (props) => {
     return nonPhotos;
   };
 
-  const openImagePicker = async () => {
-    // await launchImageLibrary({ mediaType: 'photo', selectionLimit: 10, quality: 1, maxWidth: 1536, maxHeight: 1536 }, (response) => {
-    //   if (response.didCancel) {
-    //     return Alert.alert('Oops,', 'Something went wrong');
-    //   }
-    //   const nonIndex = validatePhotos(response.assets as Asset[]);
-    //   if (nonIndex !== 0) {
-    //     Alert.alert('Warning!', 'You push non photos to a post, and it was removed');
-    //   }
-    //   let listLength = `0 of ${response.assets?.length}`;
-    //   setState({ ...getState, btnDisabled: false, files: [...(response.assets as Asset[])], isUpdate: getState.isUpdate + 1, labelText: listLength });
-    // });
+  const handleFileChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files === null || !event.target.files.length) return;
+    const arr = Array.from(event.target.files);
+    const nonIndex = validatePhotos(arr);
+    if (nonIndex !== 0) {
+          alert('Warning! You push non photos to a post, and it was removed');
+        }
+    let listLength = `${arr?.length} of ${arr?.length}`;
+    console.log(arr)
+    setState({ ...getState, btnDisabled: false, files: arr, isUpdate: getState.isUpdate + 1, labelText: listLength });
   };
 
   const onMomentumScrollEnd = (event: NativeSyntheticEvent<NativeScrollEvent>) => {
@@ -84,13 +83,16 @@ const AddComponent: React.FC<IProps> = (props) => {
             styles={{ text: [StylesFour.headerCarouselText, { color: 'black' }], container: [StylesOne.flexCenter] }}
           />
         </View>
-        <View style={[StylesOne.w100]}>
-          <FSCarouselComponent onMomentumScrollEnd={onMomentumScrollEnd} assets={getState.files} isUpdate={getState.isUpdate} />
+        <View style={[StylesOne.w100, StylesOne.flex_jc_sb, StylesOne.flex_row, { overflow: "scroll" }]}>
+          {
+            getState.files.map((el) => {
+              return <img style={{ width: 500, height: 500, objectFit: "contain", marginRight: 15 }} src={URL.createObjectURL(el)} alt=""/>
+            })
+          }
         </View>
         <View style={[MP.mv20, StylesOne.flex_row, StylesOne.flex_ai_c, StylesOne.flex_jc_c]}>
-          <TouchableOpacity onPress={openImagePicker} style={St.addPhotoBtn}>
-            <Image style={St.wh80} source={images.plus} />
-          </TouchableOpacity>
+          <input onChange={handleFileChange} type="file" multiple id="files" name="files" />
+
         </View>
         <View style={[MP.ph15]}>
         <TextInput

@@ -22,7 +22,7 @@ const RequestListComponent: React.FC<IProps> = (state) => {
 
     const renderList = () => {
         return state.data.map((el,index) => {
-            let avatar = `http://${apiURL}/storage/${el!.subscriber}/avatar/avatar.png?ab=${Date.now()}`
+            let avatar = `http://${apiURL}/storage/${el!.subscriber}/avatar/avatar.png`
             return (
                 <View key={index} style={[StylesOne.flex_row, MP.mv10, MP.ph15, {width: '100%'}]}>
                     <View style={[MP.mr10]}>

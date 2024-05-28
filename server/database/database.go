@@ -36,7 +36,7 @@ func CreateDB() *DB {
 			username     string
 			databaseName string
 		}{
-			dsn:          "root:@tcp(127.0.0.1:5432)/valhalla?charset=utf8mb4&parseTime=True&loc=Local",
+			dsn:          "root:root@tcp(127.0.0.1:3306)/valhalla?charset=utf8mb4&parseTime=True&loc=Local",
 			ip:           "127.0.0.1:3306",
 			username:     "postgres",
 			databaseName: "animetop",
@@ -102,7 +102,6 @@ func (db *DB) RegisterUser(userdata map[string]any) (string, error) {
 		Location:     location,
 		DateOfBirth:  birth,
 		IsPrivate:    0,
-		FBToken:      "",
 	}
 	if dbRegisterNewUserResponse := db.database.Table(typedDB.TABLES.USERS).Create(&user); dbRegisterNewUserResponse.Error != nil {
 		return "Something went wrong on userCreation", errors.New("Error! RegisterUser ex")

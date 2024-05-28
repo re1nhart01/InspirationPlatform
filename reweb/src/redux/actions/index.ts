@@ -5,7 +5,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BaseAction } from './BaseAction';
 //90 - 92 = MAC OS
 // export const apiURL = 'ec2-3-69-148-251.eu-central-1.compute.amazonaws.com:8080';
-export const apiURL = '192.168.1.90:8080'
+export const apiURL = '192.168.1.184:8080'
 interface ActionMethods {
   getMe(): (dispatch: Dispatch<Action>) => {};
   getMyPosts(): (dispatch: Dispatch<Action>) => {};
@@ -83,12 +83,10 @@ class Actions extends BaseAction implements ActionMethods {
     formData.append('type', `${type}`);
     // formData.append('date_of_creation', `2021-12-05`); //TODO реализовать добавление текущей даты
     for (let i = 0; i < image.length; i++) {
-      formData.append('image', {
-        uri: image[i].uri,
-        name: image[i].fileName,
-        type: image[i].type
-      } as unknown as string);
+      console.log("zxc1", image[i]);
+      formData.append('image', image[i]);
     }
+    console.log(formData);
     await this._useToken(async (el: string | null) => {
       axios
         .post(`http://${apiURL}/posts/add`, formData, {
@@ -321,6 +319,7 @@ class Actions extends BaseAction implements ActionMethods {
 
   public likePost = (imageHash: string, owner: string, type: string) => async (dispatch: Dispatch<Action>) => {
     await this._useToken(async (el: string | null) => {
+      console.log(el, "bebrakvas");
       axios
         .get(`http://${apiURL}/likes/${owner}/${imageHash}/like`, {
           headers: {

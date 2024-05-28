@@ -29,8 +29,8 @@ const SignInComponent = (props: IProps) => {
   });
 
   const Login = async () => {
-    INavigation.navigate(StackScreens.Home, {});
-    return;
+    // INavigation.navigate(StackScreens.Home, {});
+    // return;
     const username = getState.username;
     const password = getState.password;
     if (username === void 0 || username === null || username === '' || username === ' ') {
@@ -54,7 +54,7 @@ const SignInComponent = (props: IProps) => {
         <View style={[StylesOne.flex_column, StylesOne.flex_ai_c, MP.mt50]}>
           <View style={StylesOne.flexColCenter}>
             <Text style={StylesOne.logoAddition}>Welcome to</Text>
-            <Text style={StylesOne.fontLogo}>Valhalla</Text>
+            <Text style={StylesOne.fontLogo}>Konoha</Text>
           </View>
           <View>
             <Image style={StylesOne.whc_img100} source={images.logo} />
@@ -90,7 +90,7 @@ const SignInComponent = (props: IProps) => {
             <Text style={[StylesOne.ForgotBtn]}>Forgot password?</Text>
           </TouchableOpacity>
         </View>
-        <View style={[StylesOne.flex_row, StylesOne.flex_jc_c]}>
+        <View style={[StylesOne.flex_row, StylesOne.flex_jc_c, MP.pb80]}>
           <View style={StylesOne.flex_row}>
             <Text style={[MP.mr15, StylesOne.PlainText]}>Don’t have an account?</Text>
             <TouchableOpacity onPress={goToSignUpScreen}>

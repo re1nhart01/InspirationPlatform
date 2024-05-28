@@ -160,11 +160,11 @@ const MainNavigationScreen: React.FC = (props: IProps) => {
       subscription.remove();
     };
   };
-
+  console.log(localStorage.getItem("Access_TOKEN"), localStorage.getItem("Access_TOKEN") ? defaultScreen : StackScreens.Home)
   return (
     <NavigationContainer ref={INavigation.navigation}>
       <Tab.Navigator
-        initialRouteName={defaultScreen}
+        initialRouteName={localStorage.getItem("Access_TOKEN") ? StackScreens.Home : defaultScreen}
         tabBar={({ navigation }) => {
           const index = navigation.getState().index;
           if (!withoutNavigationIndex.includes(index)) {

@@ -10,13 +10,9 @@ class Settings extends BaseAction {
     constructor(url: string) {
         super(url)
     }
-    public setNewAvatar = (file: Asset) => async (dispatch: Dispatch<Action>) => {
+    public setNewAvatar = (file: File) => async (dispatch: Dispatch<Action>) => {
         const formData = new FormData()
-        formData.append("image", {
-            uri: file.uri,
-            name: file.fileName,
-            type: file.type,
-        } as unknown as string)
+        formData.append("image", file)
         await this._useToken(async (el: string | null) => {
             axios
                 .post(`http://${apiURL}/settings/avatar`, formData,{

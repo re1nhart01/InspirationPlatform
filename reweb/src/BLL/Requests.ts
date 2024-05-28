@@ -12,7 +12,7 @@ export class Requests {
 
   public static async onLikePress(owner: string, imageHash: string): Promise<BaseResponse> {
     try {
-      const authorizationToken = currentUser.token;
+      const authorizationToken = localStorage.getItem("Access_TOKEN");
       const response: BaseResponse = await axios.get(`http://${apiURL}/likes/${owner}/${imageHash}/like`, {
         headers: {
           Authorization: `Bearer ${authorizationToken}`,
@@ -26,7 +26,7 @@ export class Requests {
 
   public static async getLikesCount(posthash: string): Promise<BaseResponse> {
     try {
-      const authorizationToken = currentUser.token;
+      const authorizationToken = localStorage.getItem("Access_TOKEN");
       const response: BaseResponse = await axios.get(`http://${apiURL}/likes/getLikes/${posthash}`, {
         headers: {
           Authorization: `Bearer ${authorizationToken}`,
@@ -73,7 +73,7 @@ export class Requests {
   };
 
   public static refreshFirebaseToken = async (token: string): Promise<BaseResponse> => {
-    const authorizationToken = currentUser.token;
+    const authorizationToken = localStorage.getItem("Access_TOKEN");
     const body = {
       firebase_token: token,
     };

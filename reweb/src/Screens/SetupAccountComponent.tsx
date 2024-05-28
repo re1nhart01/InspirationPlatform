@@ -26,13 +26,6 @@ type IProps = {
 const SetupAccountComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegisterPress }): JSX.Element => {
     const { getter, setter } = pipeState
 
-
-
-
-
-
-
-
     return (
         <View style={StylesOne.wh_device}>
             <View style={[StylesOne.flex_row, StylesOne.flex_jc_fs, StylesOne.flex_ai_c, MP.mv20]}>

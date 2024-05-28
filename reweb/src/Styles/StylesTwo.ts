@@ -31,7 +31,7 @@ export const St = StyleSheet.create({
     height: mockupHeightToDP(200),
   },
   borderRadius30: {
-    borderRadius: 30,
+    borderRadius: 8,
   },
 
   borderRadius14: {
@@ -90,7 +90,7 @@ export const St = StyleSheet.create({
     marginTop: mockupHeightToDP(20),
     borderBottomLeftRadius: 0,
     borderBottomRightRadius: 0,
-    borderRadius: 30,
+    borderRadius: 16,
     flexDirection: 'row',
     flexWrap: 'wrap',
     padding: 0,
@@ -143,14 +143,14 @@ export const St = StyleSheet.create({
     width: mockupWidthToDP(145),
     height: mockupWidthToDP(150),
     resizeMode: 'contain',
-    borderRadius: 30,
+    borderRadius: 16,
     marginHorizontal: mockupWidthToDP(8),
     marginBottom: mockupHeightToDP(15),
     zIndex: 9999,
     elevation: 9999,
   },
   borderImage: {
-    borderRadius: 30,
+    borderRadius: 12,
   },
   listContainer: {
     flexDirection: 'row',
@@ -209,7 +209,7 @@ export const St = StyleSheet.create({
   },
   modalView: {
     backgroundColor: 'white',
-    borderRadius: 20,
+    borderRadius: 8,
     padding: 15,
     shadowColor: '#000',
     shadowOffset: {

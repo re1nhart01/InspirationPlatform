@@ -15,6 +15,7 @@ func main() {
 	server := gin.Default()
 	db := database.CreateDB()
 	env.EnvironmenttInit()
+	server.Use(CORSMiddleware())
 	fApp := firebase.CreateApplication()
 	routes.Auth(server, db)
 	routes.Users(server, db, fApp)
@@ -30,7 +31,6 @@ func main() {
 	chats.Chats(server, db, fApp, hub)
 	StaticServer(server)
 	database.InitTables(db)
-	server.Use(CORSMiddleware())
 	server.Run(":8080")
 
 }

@@ -117,30 +117,30 @@ func (db *DB) SendPushPosts(owner, message string) error {
 	*	@param username string @table users
 	* 	@param fb_token string @table users
 	 */
-	friendList := []map[string]any{}
-	if dbFriendListResponse := db.database.Raw("SELECT * FROM (SELECT maker from user_subscription WHERE subscriber = ? AND STATUS = 3) AS y INNER JOIN (SELECT username, fb_token FROM users) AS x ON x.username = y.maker", owner).Scan(&friendList); dbFriendListResponse.Error != nil {
-		return dbFriendListResponse.Error
-	}
-	wg := &sync.WaitGroup{}
-	wg.Add(len(friendList))
-	for _, value := range friendList {
-		if value["fb_token"] == nil {
-			wg.Done()
-			continue
-		}
-		dataSet := PushDataSet{
-			wg:                wg,
-			owner:             value["username"].(string),
-			subscriber:        owner,
-			channel:           make(chan bool),
-			notificationTitle: message,
-			status:            0,
-			additionalInfo:    "",
-		}
-		go db.PushNotificationWithoutTable(&dataSet)
-		if isSent := <-dataSet.channel; isSent {
-			fmt.Println("AddPost Push sended")
-		}
-	}
+	//friendList := []map[string]any{}
+	//if dbFriendListResponse := db.database.Raw("SELECT * FROM (SELECT maker from user_subscription WHERE subscriber = ? AND STATUS = 3) AS y INNER JOIN (SELECT username, fb_token FROM users) AS x ON x.username = y.maker", owner).Scan(&friendList); dbFriendListResponse.Error != nil {
+	//	return dbFriendListResponse.Error
+	//}
+	//wg := &sync.WaitGroup{}
+	//wg.Add(len(friendList))
+	//for _, value := range friendList {
+	//	if value["fb_token"] == nil {
+	//		wg.Done()
+	//		continue
+	//	}
+	//	dataSet := PushDataSet{
+	//		wg:                wg,
+	//		owner:             value["username"].(string),
+	//		subscriber:        owner,
+	//		channel:           make(chan bool),
+	//		notificationTitle: message,
+	//		status:            0,
+	//		additionalInfo:    "",
+	//	}
+	//	go db.PushNotificationWithoutTable(&dataSet)
+	//	if isSent := <-dataSet.channel; isSent {
+	//		fmt.Println("AddPost Push sended")
+	//	}
+	//}
 	return nil
 }

@@ -171,7 +171,7 @@ const MyPost = (props: myPostProps) => {
           <View style={[StylesOne.flex_row, MP.mt10, MP.mb20]}>
             <LikeButton owner={props.entity.owner} textColor={'white'} postHash={props.entity.image as string} />
             <TouchableOpacity
-              onPress={() => props.onCommendPress(props.entity.image)}
+              onPress={() => { props.onCommendPress(props.entity.image); hideModal() }}
               style={[{ width: mockupWidthToDP(40), height: mockupHeightToDP(30) }, StylesOne.flex_row, StylesOne.flex_ai_c, MP.mr20]}
             >
               <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={images.commend} />

@@ -1,33 +1,33 @@
 
 
 export const colors = {
-    SignIn_BG: "#20232A",
-    SignIn_Font: "#EAEAEA",
-    SignIn_Font2: "#4A4A4A",
-    Primary_Red: "#E53935",
-    Placeholder: "#CCCCCC",
-    Underline_rgba: "rgba(240,240,240,0.5)",
-    Underline_rgba_black: "rgba(35,35,35,0.1)",
-    inactive: "#78788C",
-    inactive_btn: "#C1C1C1",
-    White: "#FAFAFA",
-    transparent: "rgba(5,5,5,0)",
-    PrimaryBlue: "#1E88E5",
-    Dark: "#505062",
-    absoluteBlack: "#22222A",
-    WhiteAlice: "rgba(205, 210, 255,0.5)",
-    WhiteChalk: "#BEBEC2",
-    PurpleRed: "#F50057",
-    darkPurple: "#663399",
-    fontDarkness: "#4A4A4A",
-    blurWhite: "#E0E0E0",
-    classicBlack: "#0D0D0D",
-    mintGreen: "#81C784",
-    Chalise: '#5E6EDF',
-    declineColor: '#E64A19',
-    acceptColor: '#43A047',
-    ownerDark: '#2C2C34',
-    dateGray: '#BEBEC2',
-    myMessageBody: '#7C4DFF',
-    tetriary: '#EAEAEA',
+    SignIn_BG: "#1F1F21", // Dark background
+    SignIn_Font: "#F7F7F7", // Light font
+    SignIn_Font2: "#3A3A3A", // Secondary dark font
+    Primary_Red: "#D51F2C", // Primary red
+    Placeholder: "#B4B4B4", // Placeholder gray
+    Underline_rgba: "rgba(255,255,255,0.3)", // White underline with transparency
+    Underline_rgba_black: "rgba(0,0,0,0.1)", // Black underline with transparency
+    inactive: "#676875", // Inactive state
+    inactive_btn: "#676875", // Same as inactive
+    White: "#FFFFFF", // White
+    transparent: "rgba(0,0,0,0)", // Transparent
+    PrimaryBlue: "#000099", // Primary blue
+    Dark: "#1F1F21", // Same as SignIn_BG
+    absoluteBlack: "#1F1F21", // Same as SignIn_BG
+    WhiteAlice: "rgba(193, 197, 227,0.4)", // Light white with transparency
+    WhiteChalk: "#B4B4B4", // Same as Placeholder
+    PurpleRed: "#D51F2C", // Same as Primary_Red
+    darkPurple: "#3A3A3A", // Same as SignIn_Font2
+    fontDarkness: "#3A3A3A", // Same as SignIn_Font2
+    blurWhite: "#F7F7F7", // Same as SignIn_Font
+    classicBlack: "#000000", // Classic black
+    mintGreen: "#000099", // Same as PrimaryBlue
+    Chalise: "#D51F2C", // Same as Primary_Red
+    declineColor: "#D51F2C", // Same as Primary_Red
+    acceptColor: "#000099", // Same as PrimaryBlue
+    ownerDark: "#1F1F21", // Same as SignIn_BG
+    dateGray: "#B4B4B4", // Same as Placeholder
+    myMessageBody: "#000099", // Same as PrimaryBlue
+    tetriary: "#F7F7F7", // Same as SignIn_Font
 }

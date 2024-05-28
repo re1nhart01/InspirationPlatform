@@ -5,10 +5,17 @@ import {Provider} from "react-redux";
 import {applyMiddleware, createStore} from "redux";
 import reducers from "./redux/reducers/reducers";
 import thunk from "redux-thunk";
+import {useEffect} from "react";
+import {currentUser} from "./BLL/CurrentUserProps";
 
 
 const RegisterApp = () => {
     const store = createStore(reducers, applyMiddleware(thunk));
+
+    useEffect(() => {
+        currentUser.setToken();
+    }, []);
+
     return (
         <Provider store={store}>
             <App />

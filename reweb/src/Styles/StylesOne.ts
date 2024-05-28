@@ -12,7 +12,9 @@ export const StylesOne = StyleSheet.create({
     justifyContent: "space-between",
     flex: 1,
   },
-  absolute: {},
+  absolute: {
+    position: "absolute",
+  },
   flexColCenter: {
     display: "flex",
     flexDirection: "column",
@@ -79,8 +81,8 @@ export const StylesOne = StyleSheet.create({
   },
 
   wImageCarousel: {
-    width: DEVICE_WIDTH,
-    height: DEVICE_HEIGHT,
+    width: 400,
+    height: 400,
   },
 
   width15: {
@@ -90,7 +92,7 @@ export const StylesOne = StyleSheet.create({
 
   searchPane: {
     backgroundColor: 'rgba(0,0,0,0.1)',
-    borderRadius: 10,
+    borderRadius: 6,
     width: '100%',
     paddingHorizontal: mockupWidthToDP(15),
     marginVertical: mockupHeightToDP(10),
@@ -122,14 +124,14 @@ export const StylesOne = StyleSheet.create({
     color: colors.SignIn_Font2,
   },
   fontInputText: {
-    color: colors.SignIn_Font,
+    color: colors.White,
     fontSize: fontSizeDP(16),
     fontFamily: 'Metropolis-Medium',
     paddingBottom: mockupHeightToDP(20),
     backgroundColor: colors.SignIn_Font2,
     marginBottom: 10,
     padding: 20,
-    borderRadius: 20,
+    borderRadius: 8,
   },
   fontInputText_black: {
     color: colors.SignIn_Font2,
@@ -139,7 +141,7 @@ export const StylesOne = StyleSheet.create({
     backgroundColor: colors.WhiteAlice,
     marginBottom: 10,
     padding: 20,
-    borderRadius: 20,
+    borderRadius: 8,
   },
   fontInputText_dd: {
     color: colors.SignIn_Font2,
@@ -161,7 +163,7 @@ export const StylesOne = StyleSheet.create({
     paddingHorizontal: mockupWidthToDP(15),
   },
   SignInButton: {
-    borderRadius: 60,
+    borderRadius: 24,
     backgroundColor: colors.Primary_Red,
     width: mockupWidthToDP(200),
     height: mockupHeightToDP(50),
@@ -180,7 +182,7 @@ export const StylesOne = StyleSheet.create({
   },
 
   PickerButton: {
-    borderRadius: 60,
+    borderRadius: 24,
     backgroundColor: colors.SignIn_Font2,
     width: mockupWidthToDP(200),
     height: mockupHeightToDP(50),
@@ -384,19 +386,19 @@ export const StylesOne = StyleSheet.create({
     backgroundColor: colors.Primary_Red,
     width: mockupWidthToDP(255),
     height: mockupHeightToDP(50),
-    borderRadius: 40,
+    borderRadius: 24,
   },
   SendBtn_inactive_button: {
     backgroundColor: colors.inactive_btn,
     width: mockupWidthToDP(255),
     height: mockupHeightToDP(50),
-    borderRadius: 40,
+    borderRadius: 24,
   },
   SendBtn_inactive_text: {
     fontFamily: 'Metropolis',
     fontWeight: '800',
     fontSize: fontSizeDP(18),
-    color: colors.inactive,
+    color: colors.White,
   },
 
   DropdownStyles: {

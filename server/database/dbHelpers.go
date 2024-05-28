@@ -1,7 +1,6 @@
 package database
 
 import (
-	"errors"
 	typedDB "server/types"
 )
 
@@ -22,7 +21,7 @@ func (db *DB) GetTokenByUser(username string) (string, error) {
 	token := ""
 	dbTokenResponse := db.database.Table(typedDB.TABLES.USERS).Select("fb_token").Where("username = ?", username).Take(&token)
 	if dbTokenResponse.Error != nil {
-		return "", errors.New("Error! GetTokenByUser ex")
+		return "", nil
 	}
 	return token, nil
 }

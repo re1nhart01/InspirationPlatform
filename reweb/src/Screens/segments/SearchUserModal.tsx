@@ -65,6 +65,7 @@ function SearchUserModal(props: IProps) {
   };
 
     const onFollowingItemPress = (name: string): void => {
+        console.log(currentUser);
         if (name === currentUser.currentUserId) {
             INavigation.navigate(StackScreens.MyProfile)
             return
@@ -108,18 +109,18 @@ function SearchUserModal(props: IProps) {
   }, [getState.isVisible]);
 
   return (
-    <View>
+    <View style={{ zIndex: 999 }}>
       <View style={MP.ph15}>
         <Input debounced={true} placeholder="Search" onChange={onChange} />
       </View>
-      <Animated.View
+      <View
         style={[
           StylesOne.absolute,
           {
             top: mockupHeightToDP(60),
             width: DEVICE_WIDTH,
             height: DEVICE_HEIGHT - mockupHeightToDP(60),
-            zIndex: 9999,
+            zIndex: 999,
             opacity: fader,
             backgroundColor: colors.SignIn_Font,
             display: getState.isVisible ? 'flex' : 'none',
@@ -130,7 +131,7 @@ function SearchUserModal(props: IProps) {
         <ScrollView style={[StylesOne.flex1]}>
             {renderList()}
         </ScrollView>
-      </Animated.View>
+      </View>
     </View>
   );
 }

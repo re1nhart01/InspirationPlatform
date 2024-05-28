@@ -36,7 +36,7 @@ const FollowingListComponent = (state: IProps) => {
 
   if (state.data.length > 0) {
     return (
-      <ScrollView style={[StylesOne.screenContainer]} refreshControl={<RefreshControl refreshing={state.refresh} onRefresh={state.onRefresh} />}>
+      <View style={[StylesOne.screenContainer]}>
         <View style={[StylesOne.w100, MP.ph25]}>
           <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
             <TouchableOpacity onPress={state.onBackBtn} style={StylesOne.image24}>
@@ -47,13 +47,12 @@ const FollowingListComponent = (state: IProps) => {
           </View>
         </View>
         <View>{renderList()}</View>
-      </ScrollView>
+      </View>
     );
   }
   return (
-    <ScrollView
+    <View
       style={[StylesOne.screenContainer, MP.ph25]}
-      refreshControl={<RefreshControl refreshing={state.refresh} onRefresh={state.onRefresh} />}
     >
       <View style={[StylesOne.w100]}>
         <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
@@ -67,7 +66,7 @@ const FollowingListComponent = (state: IProps) => {
       <View>
         <Text style={{ color: 'black' }}>No {state.params.listType === 1 ? 'Following' : 'Followers'}</Text>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

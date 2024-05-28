@@ -25,7 +25,7 @@ type IProps = {
 };
 
 type IState = {
-  files: Asset;
+  files: File | null;
   avatar: string;
   dateOfBirth: string | number;
   description: string | number;
@@ -43,7 +43,7 @@ const ModalManagementSegment = (props: IProps) => {
   const dispatch = useDispatch();
   const store: any = useSelector((store) => store);
   const [getState, setState] = useState<IState | any>({
-    files: { uri: undefined },
+    files: null,
     avatar: '',
     dateOfBirth: new Date(),
     description: props.originalData.description,
@@ -69,22 +69,13 @@ const ModalManagementSegment = (props: IProps) => {
     return ['nope', 'nope'];
   }
 
-  const openImagePicker = async () => {
-    setState({ ...getState, files: { uri: undefined }, avatar: '' });
-    // await launchImageLibrary({ mediaType: 'photo', selectionLimit: 1, quality: 1 }, (response) => {
-    //   if (response.didCancel) {
-    //     return;
-    //   }
-    //   setState({ ...getState, files: response.assets![0], avatar: response.assets![0].uri as string });
-    // });
-  };
-
   const setNewValue = (param: string, value: string | number | boolean) => {
     dispatch(settingsImpl.setParam(param, value));
     setForcer((prev) => (prev += 1));
   };
 
   const setAvatar = () => {
+      console.log(getState.files)
     dispatch(settingsImpl.setNewAvatar(getState.files));
   };
 
@@ -116,6 +107,29 @@ const ModalManagementSegment = (props: IProps) => {
     }
   }
 
+    const validatePhotos = (assets: any[]): number => {
+        let nonPhotos = 0;
+        console.log(assets)
+        // @ts-ignore
+        for (let [index, asset] of assets.entries()) {
+            if (!asset.type?.includes('image')) {
+                nonPhotos++;
+                assets.splice(index, 1);
+            }
+        }
+        return nonPhotos;
+    };
+
+    const handleFileChange = (event:  React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files === null || !event.target.files.length) return;
+        const arr = Array.from(event.target.files);
+        const nonIndex = validatePhotos(arr);
+        if (nonIndex !== 0) {
+            alert('Warning! You push non photos to a post, and it was removed');
+        }
+        setState({ ...getState, files: arr?.[0], avatar: URL.createObjectURL(arr?.[0]) });
+    };
+
   function tryToChangePersonalSite() {
     //TODO make validate for is site valid
     setNewValue('personal_site', getState.personalSite);
@@ -124,37 +138,39 @@ const ModalManagementSegment = (props: IProps) => {
   switch (props.type) {
     case SelectTitles.Avatar:
       return (
-        <View style={[StylesOne.flex_column, StylesOne.flex_ai_c]}>
-          <Text style={[StylesFour.myNewsLine_caption, MP.mb20]}>Select new Avatar</Text>
-          <TouchableOpacity onPress={openImagePicker} style={[St.addPhotoBtn, MP.mb20]}>
-            <Image style={[St.wh80, { tintColor: 'white' }]} source={getState.avatar !== '' ? images.close : images.camera} />
-          </TouchableOpacity>
-          <View style={[{ width: '100%', height: getState.avatar !== '' ? mockupHeightToDP(400) : 0 }]}>
-            {getState.avatar !== '' ? (
-              <Image style={{ width: '100%', height: '100%' }} source={{ uri: `${getState.avatar}?asd=${Date.now()}` }} />
-            ) : (
-              <></>
-            )}
+          <View style={[StylesOne.flex_column, StylesOne.flex_ai_c]}>
+              <Text style={[StylesFour.myNewsLine_caption, MP.mb20]}>Select new Avatar</Text>
+              {/*<TouchableOpacity onPress={openImagePicker} style={[St.addPhotoBtn, MP.mb20]}>*/}
+              {/*  <Image style={[St.wh80, { tintColor: 'white' }]} source={getState.avatar !== '' ? images.close : images.camera} />*/}
+              {/*</TouchableOpacity>*/}
+              <input onChange={handleFileChange} type="file" id="files" name="files"/>
+              <View style={[{width: '100%', height: getState.avatar !== '' ? mockupHeightToDP(400) : 0}]}>
+                  {getState.avatar !== '' ? (
+                      <Image style={{width: '100%', height: '100%'}} source={{uri: `${getState.avatar}`}}/>
+                  ) : (
+                      <></>
+                  )}
+              </View>
+              <TouchableOpacity
+                  onPress={setAvatar}
+                  disabled={getState.avatar === ''}
+                  style={[
+                      MP.mt40,
+                      getState.avatar !== '' ? StylesOne.SendBtn_active_button : StylesOne.SendBtn_inactive_button,
+                      StylesOne.flex_row,
+                      StylesOne.flex_jc_c,
+                      StylesOne.flex_ai_c,
+                  ]}
+              >
+                  <Text
+                      style={[getState.avatar !== '' ? StylesOne.SendBtn_active_text : StylesOne.SendBtn_inactive_text]}>Set</Text>
+              </TouchableOpacity>
           </View>
-          <TouchableOpacity
-            onPress={setAvatar}
-            disabled={getState.avatar === ''}
-            style={[
-              MP.mt40,
-              getState.avatar !== '' ? StylesOne.SendBtn_active_button : StylesOne.SendBtn_inactive_button,
-              StylesOne.flex_row,
-              StylesOne.flex_jc_c,
-              StylesOne.flex_ai_c,
-            ]}
-          >
-            <Text style={[getState.avatar !== '' ? StylesOne.SendBtn_active_text : StylesOne.SendBtn_inactive_text]}>Set</Text>
-          </TouchableOpacity>
-        </View>
       );
-    case SelectTitles.Full_Name:
-      return (
-        <View>
-          <Text style={[StylesFour.myNewsLine_caption, MP.mb20, { textAlign: 'center' }]}>Set Your Full Name</Text>
+      case SelectTitles.Full_Name:
+          return (
+              <View>
+                  <Text style={[StylesFour.myNewsLine_caption, MP.mb20, { textAlign: 'center' }]}>Set Your Full Name</Text>
           <TextInput
             placeholder="Full Name"
             placeholderTextColor={colors.Placeholder}

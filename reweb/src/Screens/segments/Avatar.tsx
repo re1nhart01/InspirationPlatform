@@ -36,7 +36,7 @@ const Avatar: React.FC<IProps> = (props: IProps) => {
     return (
         <View style={[props.size ? {width: mockupWidthToDP(props.size), height: mockupWidthToDP(props.size)} : {}, St.avatar]}>
             {getState.isLoading && <View style={[StylesOne.wh100, StylesOne.absolute, St.zIndex999, StylesOne.flexCenter, backgrounds.addPost, St.borderRadius14]}><ActivityIndicator size={20} color={colors.PurpleRed} /></View>}
-             <Image onLoadStart={onLoadStart} onLoadEnd={onLoadEnd} onError={onError} defaultSource={images.standartAvatar as ImageURISource} style={[StylesOne.wh100,St.borderRadius14]} source={props.icon} />
+             <Image defaultSource={images.standartAvatar as ImageURISource} style={[StylesOne.wh100,St.borderRadius14]} source={props.icon} />
         </View>
     )
 }

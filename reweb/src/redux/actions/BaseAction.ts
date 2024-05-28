@@ -7,6 +7,7 @@ export abstract class BaseAction {
     }
     protected _useToken = async (callback: Function) => {
         await AsyncStorage.getItem('Access_TOKEN').then((el: string | null) => {
+            console.log("zxc", el);
             try {
                 if (callback !== void 0 && typeof el === 'string') {
                     callback(el);

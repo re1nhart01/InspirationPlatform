@@ -53,9 +53,6 @@ function SingleCarouselComponent(props: IProps): JSX.Element {
             </View>
           )}
             <Image
-              onLoadStart={onLoadStart}
-              onLoad={onLoad}
-              onLoadEnd={onLoadEnd}
               style={[StylesFour.myNewsLine_img]}
               source={{ uri: dataPath }}
             />

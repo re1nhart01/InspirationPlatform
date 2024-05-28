@@ -1,16 +1,13 @@
-import React, {useCallback, useEffect} from 'react';
-import {View, Text, RefreshControl, TouchableOpacity, Image, Alert} from "react-native";
+import React, { useEffect } from 'react';
+import {View, Text, TouchableOpacity, Image } from "react-native";
 import {StylesOne} from "../Styles/StylesOne";
 import {MP} from "../Styles/MP";
 import {St} from "../Styles/StylesTwo";
 import {images} from "../assets/images";
 import {
-    goBack,
-    goToUserProfileScreenOnBottomButton,
     StackScreens
 } from "./Core/MainNavigationScreen";
 import {BaseProps} from "../Types/Types";
-import {useNavigation} from "@react-navigation/native";
 import ListItem from './segments/ListItem';
 import {useDispatch, useSelector} from "react-redux";
 import {actionImpl} from "../redux/actions";

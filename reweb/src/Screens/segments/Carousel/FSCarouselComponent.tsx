@@ -30,6 +30,7 @@ type IState = {
   isLoading: boolean;
   ref: React.RefObject<ScrollView>;
   isUpdate: number;
+  imageSrc: any | null;
 };
 
 function FSCarouselComponent(props: IProps): JSX.Element {
@@ -37,13 +38,34 @@ function FSCarouselComponent(props: IProps): JSX.Element {
     isLoading: false,
     ref: React.createRef<ScrollView>(),
     isUpdate: props.isUpdate,
+    imageSrc: [],
   });
 
   const onLoadStart = () => {
     setState({ ...getState, isLoading: true });
   };
 
-  const onLoad = () => {};
+  const onLoad = () => {
+
+  };
+
+  useEffect(() => {
+   props.assets?.forEach((file: any) => {
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          console.log("e.target?.result zxc");
+          setState({ ...getState, imageSrc: [...getState.imageSrc, e.target?.result] })
+        };
+        reader.readAsDataURL(file);
+      }
+    })
+  }, [props.assets]);
+
+
+  useEffect(() => {
+    console.log(getState.imageSrc)
+  }, [getState.imageSrc]);
 
   const onLoadEnd = () => {
     setState({ ...getState, isLoading: false });
@@ -60,34 +82,34 @@ function FSCarouselComponent(props: IProps): JSX.Element {
   const renderList = () => {
     const result = [];
 
-    for (let i = 0; i < props.assets.length; i++) {
+    for (let i = 0; i < getState.imageSrc; i++) {
       result.push(
-        <View key={i} style={[StylesOne.wImageCarousel]}>
-          {getState.isLoading && (
-            <View style={[StylesOne.wh100, StylesOne.flexCenter, StylesOne.absolute]}>
-              <ActivityIndicator size={75} color={colors.Primary_Red} />
-            </View>
-          )}
+          <View key={i} style={[StylesOne.wImageCarousel]}>
+            {getState.isLoading && (
+                <View style={[StylesOne.wh100, StylesOne.flexCenter, StylesOne.absolute]}>
+                  <ActivityIndicator size={75} color={colors.Primary_Red}/>
+                </View>
+            )}
             <Image
-              onLoadStart={onLoadStart}
-              onLoad={onLoad}
-              onLoadEnd={onLoadEnd}
-              style={[StylesOne.wh100, { resizeMode: 'cover' }]}
-              source={{ uri: props.assets[i].uri }}
+                onLoadStart={onLoadStart}
+                onLoad={onLoad}
+                onLoadEnd={onLoadEnd}
+                style={[{ width: 400, height: 400, backgroundColor: 'yellow' }, {resizeMode: 'cover'}]}
+                source={{ uri: getState.imageSrc[i] }}
             />
-        </View>
+          </View>
       );
     }
     return result;
   };
 
 
-  if (props.assets.length <= 0) {
-      return (<></>)
+  if (getState.imageSrc.length <= 0) {
+    return (<></>)
   }
 
   return (
-    <View style={[{ height: mockupHeightToDP(DEVICE_HEIGHT - 250), width: DEVICE_WIDTH }, StylesOne.flex1, StylesOne.flexCenter, {backgroundColor: colors.Dark}]}>
+    <View style={[{ height: mockupHeightToDP(500), width: 500 }, StylesOne.flex1, StylesOne.flexCenter, {backgroundColor: colors.Primary_Red}]}>
       <ScrollView
         scrollEventThrottle={20}
         bounces={true}

@@ -24,6 +24,8 @@ const UserMenuPost: React.FC<IProps> = (props: IProps): JSX.Element => {
     props.onPostPress && props.onPostPress(props.postData.image);
   };
 
+    console.log(dataPath)
+
   const calculatedSize = (): number => {
     const size = windowWidth / IMAGES_PER_ROW;
     return size;
@@ -39,7 +41,7 @@ const UserMenuPost: React.FC<IProps> = (props: IProps): JSX.Element => {
         flex: props.isExpanded ? 1 : 1/3,
       }}
     >
-      <Image style={[StylesOne.wh100]} source={{ uri: `${dataPath}?${new Date().getHours()}` }} />
+      <Image style={[StylesOne.wh100]} source={{ uri: `${dataPath}` }} />
     </TouchableOpacity>
   );
 };

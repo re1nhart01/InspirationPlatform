@@ -48,7 +48,7 @@ const HomePostView: React.FC<IProps> = (props: IProps): JSX.Element => {
 
   const src = `http://${apiURL}/storage/${props.entity.owner}/avatar/avatar.png`;
   useMemo(() => {
-    setState({ ...getState, url: `http://${apiURL}/storage/${props.entity.owner}/posts/${props.entity.image}/0.png?ab=${Date.now()}` });
+    setState({ ...getState, url: `http://${apiURL}/storage/${props.entity.owner}/posts/${props.entity.image}/0.png` });
   }, [props.refresh]);
 
   const date = dateParser(props.entity.date_of_creation, 1);

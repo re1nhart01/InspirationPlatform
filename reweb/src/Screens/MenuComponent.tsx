@@ -36,14 +36,12 @@ const MenuComponent: React.FC<IProps> = (state) => {
 
   return (
     <View style={[StylesOne.screenContainer]}>
-      <View>
-        <SearchUserModal />
-      </View>
+      <SearchUserModal />
       <FlatList
         onScroll={(e) => state.onScroll(e)}
         refreshControl={<RefreshControl refreshing={state.menuState.refresh} onRefresh={state.onRefresh} />}
         contentContainerStyle={SThree.menuPostsContainer}
-        style={{paddingRight: mockupWidthToDP(2)}}
+        style={{paddingRight: mockupWidthToDP(2), zIndex: 1}}
         data={state.menuState.data}
         renderItem={renderPosts}
         columnWrapperStyle={{flexWrap: 'wrap'}}

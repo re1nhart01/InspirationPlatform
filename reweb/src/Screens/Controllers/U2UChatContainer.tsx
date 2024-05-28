@@ -140,7 +140,7 @@ const U2UChatContainer = (props: IProps) => {
 
   onFocus(async () => {
     dispatch(actionImpl.getMessages(userId, 0, true));
-    socket = new Socket(socketHash, currentUser.token, dispatch, userId);
+      socket = new Socket(socketHash, localStorage.getItem("Access_TOKEN"), dispatch, userId);
     if (socket !== null) {
     }
   }, [socketHash, userId]);

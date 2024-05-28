@@ -25,7 +25,7 @@ const ManageAccountContainer: React.FC<ManageAccountState> = (props: IProps) => 
         modalVisible: false,
     })
 
-    const avatarURL: string = `http://${apiURL}/storage/${getState.originalData!?.username as User}/avatar/avatar.png?ab=${Date.now()}`;
+    const avatarURL: string = `http://${apiURL}/storage/${getState.originalData!?.username as User}/avatar/avatar.png`;
 
 
     const openModal = (flag: boolean, type: ManageAccountState | null | string = null) => {

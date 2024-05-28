@@ -65,7 +65,7 @@ const UserProfileComponent = (state: IProps) => {
 
     return state?.user && state?.user?.userData  ? (
     <View style={{height: DEVICE_HEIGHT}}>
-        <ScrollView style={[StylesOne.screenContainer, MP.ph25]} refreshControl={<RefreshControl refreshing={state.refresh} onRefresh={state.makeRequest} />}>
+        <View style={[StylesOne.screenContainer, MP.ph25]}>
             <View style={[StylesOne.w100]}>
                 <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
                     <TouchableOpacity onPress={state.onBackBtn} style={StylesOne.image24}>
@@ -133,7 +133,7 @@ const UserProfileComponent = (state: IProps) => {
             <View style={[St.postListStyles]}>
                 {renderPosts()}
             </View>
-        </ScrollView>
+        </View>
     </View>
     ) : (
         <ScrollView

@@ -1,7 +1,6 @@
 import { Platform, StyleSheet } from 'react-native';
 import { DEVICE_HEIGHT, DEVICE_WIDTH, fontSizeDP, mockupHeightToDP, mockupWidthToDP } from '../Parts/utils';
 import { colors } from '../Parts/colors';
-// import StaticSafeAreaInsets from 'react-native-static-safe-area-insets';
 
 export const safeAreaInsetsTop = Platform.OS === 'ios' ? 20 : 0;
 export const StylesOne = StyleSheet.create({
@@ -81,8 +80,9 @@ export const StylesOne = StyleSheet.create({
   },
 
   wImageCarousel: {
-    width: 400,
-    height: 400,
+    width: DEVICE_WIDTH - 300,
+    height: 700,
+    objectFit: "contain",
   },
 
   width15: {

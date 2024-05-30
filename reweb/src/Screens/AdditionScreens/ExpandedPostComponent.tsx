@@ -37,6 +37,7 @@ const ExpandedPostComponent = (state: IProps) => {
 
   return (
     <View style={[StylesOne.screenContainer]}>
+      <ScrollView>
       <View style={[StylesOne.w100, MP.ph25]}>
         <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
           <TouchableOpacity onPress={state.onBackBtn} style={StylesOne.image24}>
@@ -46,10 +47,8 @@ const ExpandedPostComponent = (state: IProps) => {
           <View></View>
         </View>
       </View>
-      <ScrollView style={St.PhotoList} contentContainerStyle={St.PhotoListhund}>
         <View
           style={{
-            height: mockupHeightToDP(30),
             width: '100%',
             paddingHorizontal: mockupWidthToDP(20),
             marginBottom: mockupHeightToDP(15),
@@ -61,11 +60,7 @@ const ExpandedPostComponent = (state: IProps) => {
             <Image style={[{ width: mockupHeightToDP(30), height: mockupHeightToDP(30), borderRadius: 100 }]} source={{ uri: state.ownerAvatar }} />
             <Text style={[St.ownerTextWithoutOffsets, MP.ml10]}>{state.entity.owner}</Text>
           </TouchableOpacity>
-        </View>
         <View style={St.horizontalLine} />
-        {/* <View style={[MP.ph15, {height: mockupHeightToDP(500), backgroundColor: 'red'}]}>
-              {renderFirstImage()}
-            </View> */}
         <SingleCarouselComponent carouselData={state.carouselData} />
         <View style={[StylesOne.flex_row, MP.mt10, MP.mb20, MP.ph6]}>
           <LikeButton owner={state.entity.owner} textColor={'black'} postHash={state.entity.image as string} />
@@ -76,16 +71,11 @@ const ExpandedPostComponent = (state: IProps) => {
             <Image style={[{ width: '100%', height: '100%', resizeMode: 'contain' }]} source={images.commend} />
             <Text style={{ color: 'black' }}>{/**  counter here */}</Text>
           </TouchableOpacity>
-          {/*<TouchableOpacity*/}
-          {/*  onPress={state.onRepostPress}*/}
-          {/*  style={[{ width: mockupWidthToDP(40), height: mockupHeightToDP(30) }, StylesOne.flex_row, StylesOne.flex_ai_c, MP.mr20]}*/}
-          {/*>*/}
-          {/*  <Image style={[{ width: '100%', height: '100%', resizeMode: 'contain' }]} source={images.repost} />*/}
-          {/*</TouchableOpacity>*/}
         </View>
         <View style={[MP.ph15]}>
           <Text style={SThree.post_caption_word}>Caption:</Text>
           <Text selectable style={[SThree.post_caption_expanded]}>{state.entity.caption}</Text>
+        </View>
         </View>
       </ScrollView>
     </View>

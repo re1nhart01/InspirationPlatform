@@ -132,7 +132,7 @@ const MyPost = (props: myPostProps) => {
         <Image style={[StylesOne.wh100, St.borderImage]} source={{ uri: `${dataPath}0.png` }} />
       </TouchableOpacity>
       <Modal transparent={true} visible={getState.showModal} animationType={'fade'} style={[]}>
-        <ScrollView style={[styles.modalView, { paddingTop: safeAreaInsetsTop }]}>
+        <ScrollView style={[styles.modalView, { paddingTop: safeAreaInsetsTop, paddingBottom: 200 }]}>
           <View style={[StylesOne.w100, StylesOne.flex_row, StylesOne.flex_ai_c, MP.pv15]}>
             <TouchableOpacity
               activeOpacity={0.8}

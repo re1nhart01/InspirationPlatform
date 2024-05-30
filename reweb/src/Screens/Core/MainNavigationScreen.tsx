@@ -92,9 +92,6 @@ export const goToUserProfileScreenOnBottomButton = () => {
   });
 };
 
-const Stack = createStackNavigator();
-
-
 const MainNavigationScreen: React.FC = (props: IProps) => {
   const Tab = createBottomTabNavigator();
   let defaultScreen = StackScreens.SignIn;
@@ -123,14 +120,6 @@ const MainNavigationScreen: React.FC = (props: IProps) => {
     { name: StackScreens.Add, component: AddComponent, options: { headerShown: false } },
     { name: StackScreens.Notifications, component: NotificationContainer, options: { headerShown: false } },
   ];
-
-  // const onStartApp = () => {
-  //     if (true) {
-  //         defaultScreen = StackScreens.SignIn
-  //     } else {
-  //         defaultScreen = StackScreens.SignIn
-  //     }
-  // }
 
   useEffect(() => {
     ApplicationState();

@@ -15,7 +15,7 @@ export const chatStyles = StyleSheet.create({
     backgroundColor: '#F7F7FF',
   },
   chatInput: {
-    width: DEVICE_WIDTH,
+    width: "100%",
     maxWidth: DEVICE_WIDTH,
     minHeight: mockupHeightToDP(55),
     borderTopWidth: 0.5,

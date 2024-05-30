@@ -12,8 +12,8 @@ type IProps = {
 };
 
 //Constants
-const windowWidth = Dimensions.get('window').width - mockupWidthToDP(10);
-let IMAGES_PER_ROW = 3;
+const windowWidth = Dimensions.get('window').width - mockupWidthToDP(500);
+let IMAGES_PER_ROW = 8;
 
 const UserMenuPost: React.FC<IProps> = (props: IProps): JSX.Element => {
   const dataPath = `http://${apiURL}/storage/${props.postData.owner}/posts/${

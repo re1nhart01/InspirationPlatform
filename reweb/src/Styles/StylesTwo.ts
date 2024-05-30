@@ -42,6 +42,7 @@ export const St = StyleSheet.create({
   },
 
   horizontalLine: {
+    marginTop: 15,
     backgroundColor: colors.inactive_btn,
     width: '100%',
     height: 0.4,

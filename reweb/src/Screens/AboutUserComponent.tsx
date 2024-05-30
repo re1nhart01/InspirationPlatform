@@ -9,7 +9,7 @@ import {StylesFour} from "../Styles/StylesFour";
 import {backgrounds} from "../Styles/Backgrounds";
 
 const AboutUserComponent = () => {
-    const presentationInfo = 'https://docs.google.com/presentation/d/1oTseM07jmNrGm5SZvO-G40vopKKocAvx/edit?usp=sharing&ouid=112719819097889407242&rtpof=true&sd=true'
+    const presentationInfo = 'https://www.youtube.com/watch?v=ZZ5LpwO-An4'
 
     const onBackBtn = () => {
         INavigation.goBack()
@@ -26,8 +26,8 @@ const AboutUserComponent = () => {
 
     const text = `
         Hello, this is Konoha!
-        Social Media for artists.
-        Developed by Kokayko Eugene aka re1nhart
+        Social Media for anime fans.
+        Developed by Savchyn Vitaliy
         All rights are reserved.
          © COPYRIGHT Konoha.
     `
@@ -49,7 +49,7 @@ const AboutUserComponent = () => {
                         <View style={MP.mbminus50}>
                             <Text style={StylesOne.fontLogo}>Konoha</Text>
                         </View>
-                        <View style={StylesOne.wh200px}>
+                        <View style={[StylesOne.wh200px, { marginBottom: 40 }]}>
                             <Image style={StylesOne.whc_img100} source={images.logo} />
                         </View>
                     </View>

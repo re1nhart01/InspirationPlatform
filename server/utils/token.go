@@ -12,7 +12,7 @@ type Claims struct {
 	jwt.StandardClaims
 	Username string
 	Password string
-	Email 	 string
+	Email    string
 }
 
 const (
@@ -24,13 +24,13 @@ const (
 	F
 )
 
-const secret = "VaLhAlLa"
+const secret = "KoNoHaaa1234"
 
 func CreateToken(username string, email string) string {
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, &Claims{
 		StandardClaims: jwt.StandardClaims{},
-		Username: username,
-		Email: email,
+		Username:       username,
+		Email:          email,
 	})
 	stringToken, err := token.SignedString([]byte(secret))
 	if err != nil {
@@ -39,8 +39,7 @@ func CreateToken(username string, email string) string {
 	return stringToken
 }
 
-
-func ParseToken(accessToken string) (string,string,error) {
+func ParseToken(accessToken string) (string, string, error) {
 	token, err := jwt.ParseWithClaims(accessToken, &Claims{}, func(token *jwt.Token) (interface{}, error) {
 		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
 			return nil, errors.New("invalid signing method")
@@ -55,7 +54,7 @@ func ParseToken(accessToken string) (string,string,error) {
 		return "", "", errors.New("token claims invalid")
 	}
 
-	return claims.Username, claims.Email ,nil
+	return claims.Username, claims.Email, nil
 }
 
 func oldParseToken(tokenstr string) {

@@ -38,15 +38,12 @@ const FormTextBoxSegment: React.FC<IProps> = (props: IProps): JSX.Element => {
 
     return (
         <View style={[chatStyles.chatInput, StylesOne.flex_row, StylesOne.flex_jc_sb, MP.ph6, StylesOne.flex_ai_c]}>
-            <View style={[StylesOne.flex_row, StylesOne.flex_ai_c]}>
-                <TouchableOpacity style={StylesOne.image30} onPress={onEmojiPress}>
-                    <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={images.emoji} />
-                </TouchableOpacity>
+            <View style={[StylesOne.flex_row, StylesOne.flex_ai_c, { width: "80%", paddingLeft: 40 }]}>
                 <TextInput
                     multiline
                     placeholder={"Enter Your Message"}
                     placeholderTextColor={colors.Placeholder}
-                    style={[{width: mockupWidthToDP(275)}, StylesOne.fontInputText_black14,]}
+                    style={[{ width: "80%", alignItems: 'center', paddingVertical: 20 }, StylesOne.fontInputText_black14,]}
                     value={getState.inputValue}
                     maxLength={500}
                     onChangeText={(value) => setState({...getState, inputValue: value})} />

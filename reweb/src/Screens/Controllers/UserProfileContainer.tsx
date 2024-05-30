@@ -43,11 +43,11 @@ const UserProfileContainer = (props: IProps) => {
 
     const onUnfollowPress = useCallback(() => {
         dispatch(actionImpl.makeUnfollow(ownerId))
-    }, [ownerId])
+    }, [dispatch, ownerId])
 
     const onSubscribePress = useCallback(() => {
         dispatch(actionImpl.makeSubscribe(ownerId))
-    }, [ownerId])
+    }, [dispatch, ownerId])
 
     const goToChatScreen = () => {
         INavigation.navigate(StackScreens.U2UChat, {userId: ownerId, socketHash: userData.isSubscribed.socket_hash})
@@ -72,7 +72,7 @@ const UserProfileContainer = (props: IProps) => {
         }
         INavigation.navigate(StackScreens.Comments, data);
       };
-    
+
 
       onFocus(() => {
         dispatch(actionImpl.getUser(ownerId))

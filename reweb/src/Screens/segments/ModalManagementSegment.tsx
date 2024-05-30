@@ -7,10 +7,7 @@ import { images } from '../../assets/images';
 import { StylesOne } from '../../Styles/StylesOne';
 import { StylesFour } from '../../Styles/StylesFour';
 import { MP } from '../../Styles/MP';
-// import { ImagePickerResponse, launchImageLibrary } from 'react-native-image-picker';
 import { Asset, User } from '../../Types/Models';
-import { apiURL } from '../../redux/actions';
-import Avatar from './Avatar';
 import { mockupHeightToDP, mockupWidthToDP } from '../../Parts/utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { settingsImpl } from '../../redux/actions/settings';
@@ -74,9 +71,13 @@ const ModalManagementSegment = (props: IProps) => {
     setForcer((prev) => (prev += 1));
   };
 
-  const setAvatar = () => {
-      console.log(getState.files)
-    dispatch(settingsImpl.setNewAvatar(getState.files));
+  const setAvatar = async () => {
+    try {
+        await dispatch(settingsImpl.setNewAvatar(getState.files));
+        alert("Avatar updated successfully!")
+    } catch (e) {
+
+    }
   };
 
   function getFullLocation(city: string, country: string) {
@@ -140,13 +141,10 @@ const ModalManagementSegment = (props: IProps) => {
       return (
           <View style={[StylesOne.flex_column, StylesOne.flex_ai_c]}>
               <Text style={[StylesFour.myNewsLine_caption, MP.mb20]}>Select new Avatar</Text>
-              {/*<TouchableOpacity onPress={openImagePicker} style={[St.addPhotoBtn, MP.mb20]}>*/}
-              {/*  <Image style={[St.wh80, { tintColor: 'white' }]} source={getState.avatar !== '' ? images.close : images.camera} />*/}
-              {/*</TouchableOpacity>*/}
               <input onChange={handleFileChange} type="file" id="files" name="files"/>
               <View style={[{width: '100%', height: getState.avatar !== '' ? mockupHeightToDP(400) : 0}]}>
                   {getState.avatar !== '' ? (
-                      <Image style={{width: '100%', height: '100%'}} source={{uri: `${getState.avatar}`}}/>
+                      <Image style={{width: '100%', height: '100%', resizeMode: "contain" }} source={{uri: `${getState.avatar}`}}/>
                   ) : (
                       <></>
                   )}

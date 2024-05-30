@@ -4,7 +4,7 @@ import (
 	typedDB "server/types"
 )
 
-const PushTitle = "Valhalla"
+const PushTitle = "Konoha"
 
 const (
 	NewMessage    = "User <%s> send message to you!"                     //+

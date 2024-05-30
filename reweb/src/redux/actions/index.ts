@@ -1,10 +1,8 @@
 import { Dispatch } from 'redux';
 import axios from 'axios';
 import { Action, ActionTypes } from '../types/ActionTypes';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { BaseAction } from './BaseAction';
 //90 - 92 = MAC OS
-// export const apiURL = 'ec2-3-69-148-251.eu-central-1.compute.amazonaws.com:8080';
 export const apiURL = '192.168.1.184:8080'
 interface ActionMethods {
   getMe(): (dispatch: Dispatch<Action>) => {};
@@ -81,7 +79,6 @@ class Actions extends BaseAction implements ActionMethods {
     const formData = new FormData();
     formData.append('caption', caption);
     formData.append('type', `${type}`);
-    // formData.append('date_of_creation', `2021-12-05`); //TODO реализовать добавление текущей даты
     for (let i = 0; i < image.length; i++) {
       console.log("zxc1", image[i]);
       formData.append('image', image[i]);

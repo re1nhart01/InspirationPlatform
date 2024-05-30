@@ -38,14 +38,6 @@ const BottomNavigation: React.FC<IProps> = ({}) => {
       </TouchableOpacity>
       <TouchableOpacity
         onPress={() => {
-          INavigation.navigate(StackScreens.Notifications);
-        }}
-        style={St.BottomNavigationItem}
-      >
-        <Image style={[StylesOne.wh100]} source={images.notifications} />
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={() => {
           INavigation.navigate(StackScreens.MyProfile);
         }}
         style={St.BottomNavigationItem}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Image, TouchableOpacity, ScrollView, RefreshControl } from 'react-native';
+import {View, Text, Image, TouchableOpacity, ScrollView, RefreshControl, FlatList} from 'react-native';
 import { apiURL } from '../redux/actions';
 import { StylesOne } from '../Styles/StylesOne';
 import { MP } from '../Styles/MP';
@@ -22,17 +22,21 @@ type IProps = {
 const FollowingListComponent = (state: IProps) => {
   const renderList = () => {
     return state.data.map((el, index) => {
-      const body = {
-        ...el,
-        index: index,
-        isMe: state.isMe as string,
-        params: state.params,
-        onFollowingItemPress: state.onFollowingItemPress,
-        showButtons: true,
-      }
-      return <UserListItem key={index} {...body}   />
+
     });
   };
+
+  const renderItem = ({ item, index }: { item: Requests, index: number }) => {
+    const body = {
+      ...item,
+      index: index,
+      isMe: state.isMe as string,
+      params: state.params,
+      onFollowingItemPress: state.onFollowingItemPress,
+      showButtons: true,
+    }
+    return <UserListItem key={index} {...body}   />
+  }
 
   if (state.data.length > 0) {
     return (
@@ -46,7 +50,10 @@ const FollowingListComponent = (state: IProps) => {
             <View />
           </View>
         </View>
-        <View>{renderList()}</View>
+        <FlatList
+          data={state.data}
+          renderItem={renderItem}
+        />
       </View>
     );
   }
@@ -62,9 +69,9 @@ const FollowingListComponent = (state: IProps) => {
           <Text style={StylesOne.CheckBox_text}>{state.params.listType === 1 ? 'Following' : 'Followers'}</Text>
           <View />
         </View>
-      </View>
-      <View>
-        <Text style={{ color: 'black' }}>No {state.params.listType === 1 ? 'Following' : 'Followers'}</Text>
+        <View>
+          <Text style={{ color: 'black' }}>No {state.params.listType === 1 ? 'Following' : 'Followers'}</Text>
+        </View>
       </View>
     </View>
   );

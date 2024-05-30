@@ -36,7 +36,7 @@ func CreateDB() *DB {
 			username     string
 			databaseName string
 		}{
-			dsn:          "root:root@tcp(127.0.0.1:3306)/valhalla?charset=utf8mb4&parseTime=True&loc=Local",
+			dsn:          "root:root@tcp(127.0.0.1:3306)/konoha?charset=utf8mb4&parseTime=True&loc=Local",
 			ip:           "127.0.0.1:3306",
 			username:     "postgres",
 			databaseName: "animetop",
@@ -210,10 +210,10 @@ func (db *DB) GetMyPosts(username string) ([]*models.Post, error) {
 }
 
 func (db *DB) Logout(username string) error {
-	result := db.database.Table(typedDB.TABLES.USERS).Where("username = ?", username).Updates(map[string]any{"token": "", "fb_token": ""})
-	if result.Error != nil {
-		return errors.New("ERROR! Something went wrong on database")
-	}
+	//result := db.database.Table(typedDB.TABLES.USERS).Where("username = ?", username).Updates(map[string]any{"token": "", "fb_token": ""})
+	//if result.Error != nil {
+	//	return errors.New("ERROR! Something went wrong on database")
+	//}
 	return nil
 }
 

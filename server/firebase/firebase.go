@@ -10,7 +10,7 @@ import (
 	"google.golang.org/api/option"
 )
 
-const appName = "Valhalla"
+const appName = "Konoha"
 
 var ctx = context.Background()
 

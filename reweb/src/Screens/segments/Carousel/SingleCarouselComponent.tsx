@@ -44,7 +44,6 @@ function SingleCarouselComponent(props: IProps): JSX.Element {
     const result = [];
     for (let i = 0; i < props.carouselData.data_count; i++) {
       const dataPath = `http://${apiURL}/storage/${props.carouselData.owner}/posts/${props.carouselData.post_hash}/${i}.png?image=${props.carouselData.post_hash}`;
-      console.log(dataPath, 'datapath')
       result.push(
         <View key={i} style={[StylesOne.wImageCarousel]}>
           {getState.isLoading && (
@@ -53,7 +52,7 @@ function SingleCarouselComponent(props: IProps): JSX.Element {
             </View>
           )}
             <Image
-              style={[StylesFour.myNewsLine_img]}
+              style={[{ width: "100%", height: "100%", objectFit: "contain", resizeMode: 'contain' }]}
               source={{ uri: dataPath }}
             />
         </View>
@@ -62,13 +61,10 @@ function SingleCarouselComponent(props: IProps): JSX.Element {
     return result;
   };
   return (
-    <View style={[{ height: mockupHeightToDP(600), width: DEVICE_WIDTH }, StylesOne.flex1, StylesOne.flexCenter, {backgroundColor: colors.Dark}]}>
+    <View style={[{ width: DEVICE_WIDTH },StylesOne.flexCenter, {backgroundColor: colors.Dark}]}>
       <ScrollView
-        scrollEventThrottle={20}
-        bounces={true}
-        scrollEnabled={true}
+        style={{ paddingRight: 30, }}
         onMomentumScrollEnd={onMomentumScrollEnd}
-        pagingEnabled
         ref={getState.ref}
         horizontal
       >

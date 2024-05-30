@@ -33,20 +33,6 @@ type IProps = {
             </Text>
           </View>
         </TouchableOpacity>
-        {props.showButtons &&
-        <>
-        {typeof props.isMe === 'string' && props.isMe === props.params.userId ? <View style={[StylesOne.flex_row, { justifyContent: 'flex-end', alignItems: 'center' }]}>
-          {props.params.listType === 1 ? <TouchableOpacity style={[MP.mr5, StylesOne.followerListButton]}>
-            <Text style={[StylesOne.following_title, { fontSize: fontSizeDP(12)}]}>{'Unfollow'}</Text>
-          </TouchableOpacity>
-              :
-          <TouchableOpacity style={[MP.mr5, StylesOne.followerListButton]}>
-            <Text style={[StylesOne.following_title, { fontSize: fontSizeDP(12)}]}>{'Remove'}</Text>
-          </TouchableOpacity>}
-        </View>
-        : null}
-        </>
-        }
       </View>
     );
 }

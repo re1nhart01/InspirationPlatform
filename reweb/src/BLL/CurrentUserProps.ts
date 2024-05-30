@@ -38,7 +38,6 @@ class CurrentUserProps {
       this._currentUserId = username;
       this._token = response.data;
       await this.saveUser();
-      await application.sendInitialToken();
       if (preloader) {
         preloader(false);
       }

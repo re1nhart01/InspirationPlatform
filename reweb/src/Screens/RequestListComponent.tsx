@@ -1,12 +1,12 @@
 import React from "react";
-import {View, Text, ScrollView, RefreshControl, TouchableOpacity, Image} from "react-native";
+import {View, Text, TouchableOpacity, Image, FlatList} from "react-native";
 import {StylesOne} from "../Styles/StylesOne";
 import {MP} from "../Styles/MP";
 import {St} from "../Styles/StylesTwo";
 import {images} from "../assets/images";
 import {Requests} from "../Types/Models";
 import {apiURL} from "../redux/actions";
-import {DEVICE_WIDTH, fontSizeDP, mockupWidthToDP} from "../Parts/utils";
+import { fontSizeDP } from "../Parts/utils";
 
 type IProps = {
     onRefresh(): void;
@@ -18,36 +18,32 @@ type IProps = {
 
 const RequestListComponent: React.FC<IProps> = (state) => {
 
-
-
-    const renderList = () => {
-        return state.data.map((el,index) => {
-            let avatar = `http://${apiURL}/storage/${el!.subscriber}/avatar/avatar.png`
+    const renderList = ({ item,index }: { item: Requests; index: number }) => {
+            let avatar = `http://${apiURL}/storage/${item.subscriber}/avatar/avatar.png`
             return (
                 <View key={index} style={[StylesOne.flex_row, MP.mv10, MP.ph15, {width: '100%'}]}>
                     <View style={[MP.mr10]}>
-                    <Image style={[St.round100image40]} source={images.standardAvatar}/>
+                    <Image style={[St.round100image40]} source={{ uri: avatar }}/>
                     </View>
-                    <View style={[StylesOne.flex_column, StylesOne.flex_jc_c, {width: mockupWidthToDP(120)}]}>
-                    <Text numberOfLines={1} style={[StylesOne.requests_username]}>{el.subscriber}</Text>
-                    <Text numberOfLines={1} style={[StylesOne.requests_fullName]}>{el.full_name}</Text>
+                    <View style={[StylesOne.flex_column, StylesOne.flex_jc_c]}>
+                    <Text numberOfLines={1} style={[StylesOne.requests_username]}>{item.subscriber}</Text>
+                    <Text numberOfLines={1} style={[StylesOne.requests_fullName]}>{item.full_name}</Text>
                     </View>
-                    <View style={[StylesOne.flex_row,{justifyContent: "flex-end", alignItems: 'center'}]}>
-                        <TouchableOpacity style={[MP.mr5, StylesOne.requests_accept]} onPress={() => {state.onAcceptOrDeclinePress(el.subscriber, true, index)}}>
+                    <View style={[StylesOne.flex_row, {justifyContent: "flex-end", alignItems: 'center', width: "90%"}]}>
+                        <TouchableOpacity style={[MP.mr5, StylesOne.requests_accept]} onPress={() => {state.onAcceptOrDeclinePress(item.subscriber, true, index)}}>
                             <Text style={[StylesOne.requests_username, {fontSize: fontSizeDP(12),color: 'white'}]}>Accept</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[StylesOne.requests_decline]} onPress={() => {state.onAcceptOrDeclinePress(el.subscriber, false, index)}}>
+                        <TouchableOpacity style={[StylesOne.requests_decline]} onPress={() => {state.onAcceptOrDeclinePress(item.subscriber, false, index)}}>
                             <Text style={[StylesOne.requests_username, {fontSize: fontSizeDP(12), color: 'white'}]}>Decline</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             )
-        })
     }
 
 if (state.data.length > 0) {
     return (
-        <ScrollView style={[StylesOne.screenContainer]} refreshControl={<RefreshControl refreshing={state.refresh} onRefresh={state.onRefresh}/>}>
+        <View style={[StylesOne.screenContainer]}>
             <View style={[StylesOne.w100, MP.ph25]}>
                 <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
                     <TouchableOpacity onPress={state.onBackBtn} style={StylesOne.image24}>
@@ -57,14 +53,17 @@ if (state.data.length > 0) {
                     <View/>
                 </View>
             </View>
-            <View>
-                {renderList()}
+            <View style={{ width: "100%", height: 1400 }}>
+                <FlatList
+                    data={state.data}
+                    renderItem={renderList}
+                />
             </View>
-        </ScrollView>
+        </View>
     )
 }
     return (
-        <ScrollView style={[StylesOne.screenContainer, MP.ph25]} refreshControl={<RefreshControl refreshing={state.refresh} onRefresh={state.onRefresh}/>}>
+        <View style={[StylesOne.screenContainer, MP.ph25]}>
             <View style={[StylesOne.w100]}>
                 <View style={[StylesOne.flex_row, StylesOne.flex_jc_sb, StylesOne.flex_ai_c, MP.mv20]}>
                     <TouchableOpacity onPress={state.onBackBtn} style={StylesOne.image24}>
@@ -77,7 +76,7 @@ if (state.data.length > 0) {
             <View>
                <Text style={{color:'black'}}>No requests</Text>
             </View>
-        </ScrollView>
+        </View>
     )
 
 }

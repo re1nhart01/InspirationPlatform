@@ -76,22 +76,7 @@ export function CommentItemView(props: IProps): JSX.Element {
   };
 
   const onManagePress = () => {
-    Alert.alert('Comment editing', 'Choose action', [
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-      {
-        text: 'Remove',
-        onPress: onRemovePress,
-        style: 'destructive',
-      },
-      {
-        text: 'Update',
-        onPress: onUpdatePress,
-        style: 'destructive',
-      },
-    ]);
+      setState({ ...getState, isUpdate: true })
   };
 
   return (
@@ -120,6 +105,9 @@ export function CommentItemView(props: IProps): JSX.Element {
                 </TouchableOpacity>
               ) : (
                 <>
+                  <TouchableOpacity onPress={onRemovePress} activeOpacity={0.4} style={[StylesOne.h100]}>
+                    <Text style={[StylesFour.commentRemoveBtn_title, MP.mr10]}>Remove</Text>
+                  </TouchableOpacity>
                   <TouchableOpacity onPress={onUpdateSavePress} activeOpacity={0.4} style={[StylesOne.h100]}>
                     <Text style={[StylesFour.commentRemoveBtn_title, MP.mr10]}>Save</Text>
                   </TouchableOpacity>

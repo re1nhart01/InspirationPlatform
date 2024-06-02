@@ -144,13 +144,13 @@ const MyPost = (props: myPostProps) => {
               </View>
             </TouchableOpacity>
             <View style={[StylesOne.width70, StylesOne.flex_row, StylesOne.flex_jc_c]}>
-              <LabelView
-                styles={{
-                  text: [StylesFour.headerCarouselText],
-                  container: [StylesOne.h100],
-                }}
-                defaultText={getState.labelText}
-              />
+              {/*<LabelView*/}
+              {/*  styles={{*/}
+              {/*    text: [StylesFour.headerCarouselText],*/}
+              {/*    container: [StylesOne.h100],*/}
+              {/*  }}*/}
+              {/*  defaultText={getState.labelText}*/}
+              {/*/>*/}
             </View>
             {props.isMe && <TouchableOpacity
               activeOpacity={0.8}

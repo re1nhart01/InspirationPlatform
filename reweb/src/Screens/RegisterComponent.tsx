@@ -75,7 +75,7 @@ const RegisterComponent = (props: IProps) => {
         console.log(name, email, password, fName, location, about, gender, birth, site);
         const response = await Requests.register({name, email, password, fName, location, about, gender, birth, site})
         if (response.statusCode !== 200) {
-            Alert.alert("Warning!", response.statusMessage);
+            alert(`Warning! ${response.statusMessage || ''}`);
             return
         } else {
             await currentUser.authorize(name, password)

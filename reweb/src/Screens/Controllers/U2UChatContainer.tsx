@@ -38,6 +38,7 @@ const U2UChatContainer = (props: IProps) => {
   let isLoading = false;
   const onMessageSend = useCallback(
     async (text: string) => {
+      window.scrollTo( 0, document.body.scrollHeight )
       const mHash = Utilities.stingToBase64({ text: Math.random(), companion: userId, date: Date.now() });
       const socketData = {
         plain_message: text,
@@ -58,20 +59,15 @@ const U2UChatContainer = (props: IProps) => {
       }
 
       dispatch(modulesImpl.addMessageToStack(plainMessage));
-      flatListRef.current!.scrollToEnd({
-        animated: true,
-      });
       await (socket as Socket).emitByEvent(SocketEvents.sendMessage, socketData);
     },
     [socket, userId]
   );
 
   const onDeleteMessagePress = (message: MessageEntity) => {
-    // ToastAndroid.show("onDeleteMessagePress", 2000);
   }
 
   const onUpdateMessagePress = (message: MessageEntity) => {
-    // ToastAndroid.show("onUpdateMessagePress", 2000);
   }
 
   const scrollToEnd = useCallback(() => {

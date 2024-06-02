@@ -27,7 +27,7 @@ class Socket {
     this._cHash = cHash;
     this._userName = userName;
     this._makeDispatch = dispatch;
-    this._socket = new WebSocket(`${this.serverURL}/valhalla/${cHash}?token=${token}`);
+    this._socket = new WebSocket(`${this.serverURL}/konoha/${cHash}?token=${token}`);
     this._socket.onopen = () => {
       this.emitByEvent(SocketEvents.connect, '');
       this.emitByEvent(SocketEvents.readAllMessages, this._userName);

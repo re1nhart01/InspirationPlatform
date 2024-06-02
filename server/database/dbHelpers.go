@@ -1,9 +1,5 @@
 package database
 
-import (
-	typedDB "server/types"
-)
-
 const PushTitle = "Konoha"
 
 const (
@@ -19,9 +15,9 @@ const (
 
 func (db *DB) GetTokenByUser(username string) (string, error) {
 	token := ""
-	dbTokenResponse := db.database.Table(typedDB.TABLES.USERS).Select("fb_token").Where("username = ?", username).Take(&token)
-	if dbTokenResponse.Error != nil {
-		return "", nil
-	}
+	//dbTokenResponse := db.database.Table(typedDB.TABLES.USERS).Select("fb_token").Where("username = ?", username).Take(&token)
+	//if dbTokenResponse.Error != nil {
+	//	return "", nil
+	//}
 	return token, nil
 }

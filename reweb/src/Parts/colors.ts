@@ -15,7 +15,7 @@ export const colors = {
     PrimaryBlue: "#000099", // Primary blue
     Dark: "#1F1F21", // Same as SignIn_BG
     absoluteBlack: "#1F1F21", // Same as SignIn_BG
-    WhiteAlice: "rgba(193, 197, 227,0.4)", // Light white with transparency
+    WhiteAlice: "rgba(193, 197, 227, 1)", // Light white with transparency
     WhiteChalk: "#B4B4B4", // Same as Placeholder
     PurpleRed: "#D51F2C", // Same as Primary_Red
     darkPurple: "#3A3A3A", // Same as SignIn_Font2

@@ -161,8 +161,8 @@ export const St = StyleSheet.create({
   BottomNavigationStyles: {
     position: 'absolute',
     bottom: 0,
-    height: mockupHeightToDP(70),
-    width: DEVICE_WIDTH,
+    height: mockupHeightToDP(75),
+    width: "100%",
     flexDirection: 'row',
     justifyContent: 'space-around',
     alignItems: 'center',

@@ -11,3 +11,5 @@ router.post('/avatar', function(req, res) {
 router.post('/:parameter', function(req, res) {
   res.send('About birds');
 });
+
+export default router;

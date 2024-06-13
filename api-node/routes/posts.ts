@@ -27,3 +27,6 @@ router.get('/getMyNewsLine', function(req, res) {
 router.get('/getPost/:post-hash', function(req, res) {
     res.send('About birds');
 });
+
+
+export default router;

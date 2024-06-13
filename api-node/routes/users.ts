@@ -43,3 +43,6 @@ router.get('/:userId/following', function (req, res) {
 router.get('/:userId/followers', function (req, res) {
     res.send('About birds');
 })
+
+
+export default router;

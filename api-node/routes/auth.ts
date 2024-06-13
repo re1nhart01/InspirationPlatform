@@ -11,3 +11,6 @@ router.post('/register', function(req, res) {
 router.post('/login', function(req, res) {
   res.send('About birds');
 });
+
+
+export default router;

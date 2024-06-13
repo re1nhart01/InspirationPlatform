@@ -11,3 +11,5 @@ router.get('/:postowner/:posthash/like', function(req, res) {
 router.get('/getLikes/:posthash', function(req, res) {
   res.send('About birds');
 });
+
+export default router;

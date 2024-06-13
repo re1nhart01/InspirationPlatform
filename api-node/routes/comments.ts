@@ -19,3 +19,5 @@ router.get('/:posthash/get', function(req, res) {
   router.put('/:posthash/:commenthash/update', function(req, res) {
     res.send('About birds');
   });
+
+export default router;

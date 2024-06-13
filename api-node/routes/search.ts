@@ -6,3 +6,6 @@ const router = express.Router()
 router.put('/search_user', function(req, res) {
   res.send('Birds home page');
 });
+
+
+export default router;

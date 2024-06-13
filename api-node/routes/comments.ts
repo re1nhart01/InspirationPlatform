@@ -3,11 +3,19 @@ import express from "express";
 const router = express.Router()
 
 
-router.get('/', function(req, res) {
+router.post('/:posthash/add', function(req, res) {
   res.send('Birds home page');
 });
 
 
-router.get('/about', function(req, res) {
+router.delete('/:posthash/:commenthash/delete', function(req, res) {
   res.send('About birds');
 });
+
+router.get('/:posthash/get', function(req, res) {
+    res.send('About birds');
+  });
+
+  router.put('/:posthash/:commenthash/update', function(req, res) {
+    res.send('About birds');
+  });

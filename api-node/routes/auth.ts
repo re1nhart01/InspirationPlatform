@@ -3,11 +3,11 @@ import express from "express";
 const router = express.Router()
 
 
-router.get('/', function(req, res) {
+router.post('/register', function(req, res) {
   res.send('Birds home page');
 });
 
 
-router.get('/about', function(req, res) {
+router.post('/login', function(req, res) {
   res.send('About birds');
 });

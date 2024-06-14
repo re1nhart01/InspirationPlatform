@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../services/db/sql/driver";
+import {TABLES} from "./index";
 
 
 
@@ -40,4 +41,3 @@ export const Comment = sequelize.define('Comment', {
     timestamps: true, // Enable timestamps to automatically manage createdAt and updatedAt
     tableName: TABLES.COMMENTS // Optional: specify table name if it's not the default one
   });
-  

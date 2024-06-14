@@ -1,10 +1,26 @@
 import express from "express";
+import {authMiddleware, AuthRequest} from "../middleware/auth.middleware";
+import {UsersRepository} from "../services/service/user";
+import Requestor from "./../services/helpers/response";
 
 const router = express.Router()
 
 
-router.get('/me', function(req, res) {
-  res.send('Birds home page');
+router.get('/me', authMiddleware, async (req, res) => {
+    try {
+        const { username, email } = (<AuthRequest>req).user;
+            ///"http://" + c.Request.Host + "/storage/" + name + "/avatar/avatar.png"
+        const resultMe = await UsersRepository.getMe(username);
+        res.status(200).send({
+            me: true,
+            data: resultMe,
+            avatar: "http://" + req.hostname + "/storage/" + username + "/avatar/avatar.png",
+        })
+    } catch (e) {
+        res.status(423).send({
+            message: "Bad Token!",
+        })
+    }
 });
 
 

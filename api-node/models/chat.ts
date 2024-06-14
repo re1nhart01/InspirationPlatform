@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../services/db/sql/driver";
+import {TABLES} from "./index";
 
 const ChatData = sequelize.define('ChatData', {
     id: {
@@ -39,5 +40,5 @@ const ChatData = sequelize.define('ChatData', {
     timestamps: false,
     tableName: TABLES.USERToUSERChat
   });
-  
+
   module.exports = ChatData;

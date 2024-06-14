@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import { sequelize } from "../services/db/sql/driver";
+import {TABLES} from "./index";
 
 
 

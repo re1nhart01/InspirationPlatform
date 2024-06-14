@@ -1,8 +1,20 @@
-import { DataTypes } from "sequelize";
+import {DataTypes, Model, Optional} from "sequelize";
 import { sequelize } from "../services/db/sql/driver";
+import {TABLES} from "./index";
+import { ISubscription } from "../types/modeling";
 
 
-export const UserSubscriptions = sequelize.define('UserSubscriptions', {
+export class UserSubscriptionsDeclaration extends Model<ISubscription, Optional<ISubscription, 'id'>> {
+    declare id: number;
+    declare maker: string;
+    declare subscriber: string;
+    declare status: number;
+    declare socketHash?: string;
+    declare readonly created_at: Date;
+    declare readonly updated_at: Date;
+}
+
+export const UserSubscriptions = UserSubscriptionsDeclaration.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -25,17 +37,18 @@ export const UserSubscriptions = sequelize.define('UserSubscriptions', {
       type: DataTypes.STRING,
       allowNull: true
     },
-    createdAt: {
+    created_at: {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: DataTypes.NOW
     },
-    updatedAt: {
+    updated_at: {
       type: DataTypes.DATE,
       allowNull: true,
       defaultValue: DataTypes.NOW
     }
   }, {
-    timestamps: true, // Enable timestamps to automatically manage createdAt and updatedAt
-    tableName: TABLES.SUBSCRIPTIONS // Optional: specify table name if it's not the default one
+    sequelize,
+    timestamps: false,
+    tableName: TABLES.SUBSCRIPTIONS
   });

@@ -9,7 +9,7 @@ export function print (path: any, layer: any) {
         path.concat(split(layer.regexp)).filter(Boolean).join('/'))
     }
   }
-  
+
   export function split (thing: any) {
     if (typeof thing === 'string') {
       return thing.split('/')
@@ -25,3 +25,10 @@ export function print (path: any, layer: any) {
         : '<complex:' + thing.toString() + '>'
     }
   }
+
+
+export function isValidEmail(email: string) {
+    // Regular expression for a simple email validation
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}

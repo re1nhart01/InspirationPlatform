@@ -1,9 +1,28 @@
-import { DataTypes } from "sequelize";
+import {DataTypes, Model, Optional} from "sequelize";
 import { sequelize } from "../services/db/sql/driver";
+import {TABLES} from "./index";
+import {IUser} from "../types/modeling";
 
 
+export class UserDeclaration extends Model<IUser, Optional<IUser, 'id'>> {
+    declare id: number;
+    declare username: string;
+    declare email: string;
+    declare password: string;
+    declare avatar: string;
+    declare personal_site: string;
+    declare gender: string;
+    declare description: string;
+    declare full_name: string;
+    declare location: string;
+    declare date_of_birth: string;
+    declare is_private: boolean;
+    declare token: string;
+    declare readonly created_at: Date;
+}
 
-export const User = sequelize.define('User', {
+
+export const User = UserDeclaration.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -26,7 +45,7 @@ export const User = sequelize.define('User', {
       type: DataTypes.STRING,
       allowNull: true
     },
-    personalSite: {
+    personal_site: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -38,7 +57,7 @@ export const User = sequelize.define('User', {
       type: DataTypes.STRING,
       allowNull: true
     },
-    fullName: {
+    full_name: {
       type: DataTypes.STRING,
       allowNull: true
     },
@@ -46,11 +65,11 @@ export const User = sequelize.define('User', {
       type: DataTypes.STRING,
       allowNull: true
     },
-    dateOfBirth: {
+    date_of_birth: {
       type: DataTypes.STRING,
       allowNull: true
     },
-    isPrivate: {
+    is_private: {
       type: DataTypes.BOOLEAN,
       allowNull: false,
       defaultValue: false
@@ -58,9 +77,15 @@ export const User = sequelize.define('User', {
     token: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    created_at: {
+        type: DataTypes.DATE,
+        allowNull: false,
+        defaultValue: DataTypes.NOW
     }
   }, {
-    timestamps: true,
+    sequelize,
+    timestamps: false,
     tableName: TABLES.USERS
   });
 

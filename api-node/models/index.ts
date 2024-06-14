@@ -1,6 +1,6 @@
+import {sequelize} from "../services/db/sql/driver";
 
-
-const TABLES = {
+export const TABLES = {
 	USERS:          "users",
 	POSTS:          "posts",
 	SUBSCRIPTIONS:  "user_subscription",
@@ -8,4 +8,10 @@ const TABLES = {
 	LIKES:          "likes",
 	NOTIFICATIONS:  "notifications",
 	COMMENTS:       "comments",
+}
+
+
+
+export async function executeSyncModels() {
+	await sequelize.sync({ logging: true })
 }

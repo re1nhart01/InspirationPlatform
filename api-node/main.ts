@@ -11,14 +11,23 @@ import postsRouter from "./routes/posts";
 import searchRouter from "./routes/search";
 import settingsRouter from "./routes/settings";
 import usersRouter from "./routes/users";
+import * as path from "path";
 
 dotenv.config({
     path: "./services/env/.env"
 });
 
+sequelize.sync({ logging: true }).then((v) => {
+    console.log(v.getDatabaseName(), "IS SUCCESSFULLY RUNNED!")
+})
+
 const PORT = process.env.PORT;
 const app = express();
 
+
+app.use(express.static(path.join(__dirname, 'storage')));
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use("/auth", authRouter)
 app.use("/comments", commentsRouter)
@@ -35,8 +44,8 @@ app.get("/", (req, res) => {
         "isAlive": true,
     })
 })
-  
-  app._router.stack.forEach(print.bind(null, []))
+
+app._router.stack.forEach(print.bind(null, []))
 
 
 app.listen(PORT, () => {

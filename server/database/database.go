@@ -237,7 +237,7 @@ func (db *DB) GetNewsLine(initiator string, page int) ([]map[string]any, int, er
 	var dbPageResult = map[string]interface{}{}
 	const postBunch int = 30
 	dbResponse := db.database.Raw(`
-	SELECT * FROM posts ORDER BY posts.date_of_creation DESC`, initiator).Offset(postBunch * page).Limit(postBunch).Scan(&dbResult)
+	SELECT * FROM posts ORDER BY posts.date_of_creation DESC`).Offset(postBunch * page).Limit(postBunch).Scan(&dbResult)
 	dbPageCount := db.database.Raw("SELECT COUNT(*) FROM posts").Scan(&dbPageResult)
 	pageCount := math.Ceil(float64(dbPageResult["COUNT(*)"].(int64) / 30))
 	fmt.Println(dbPageCount, pageCount)

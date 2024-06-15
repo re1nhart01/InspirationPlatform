@@ -2,7 +2,7 @@ import express from "express";
 import {ILoginUserBody, IRegisterUserBody} from "../types";
 import Requestor from "./../services/helpers/response";
 import {StatusCodes} from "http-status-codes";
-import {AuthRepository} from "../services/service/auth";
+import {AuthRepository} from "../services/service/auth.service";
 import * as fs from "fs/promises";
 import * as path from "path";
 

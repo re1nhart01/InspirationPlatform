@@ -1,11 +1,26 @@
-import { DataTypes } from "sequelize";
+import {DataTypes, Model, Optional} from "sequelize";
 import { sequelize } from "../services/db/sql/driver";
 import {TABLES} from "./index";
+import { IPost } from "../types/modeling";
 
 
 
 
-export const Post = sequelize.define('Post', {
+export class PostDeclaration extends Model<IPost, Optional<IPost, 'id'>> {
+    public id!: number;
+    public owner!: string;
+    public type!: number;
+    public image?: string;
+    public video?: string;
+    public text!: string;
+    public caption!: string;
+    public like_id!: string;
+    public date_of_creation!: Date;
+    public data_count!: number;
+}
+
+
+export const Post = PostDeclaration.init({
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       primaryKey: true,
@@ -35,20 +50,21 @@ export const Post = sequelize.define('Post', {
       type: DataTypes.STRING,
       allowNull: false
     },
-    likeId: {
+    like_id: {
       type: DataTypes.STRING,
       allowNull: false
     },
-    dateOfCreation: {
+    date_of_creation: {
       type: DataTypes.DATE,
       allowNull: false,
       defaultValue: DataTypes.NOW
     },
-    dataCount: {
+    data_count: {
       type: DataTypes.INTEGER,
       allowNull: false
     }
   }, {
+    sequelize,
     timestamps: false,
     tableName: TABLES.POSTS
   });

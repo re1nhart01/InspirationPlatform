@@ -9,7 +9,7 @@ export class UserSubscriptionsDeclaration extends Model<ISubscription, Optional<
     declare maker: string;
     declare subscriber: string;
     declare status: number;
-    declare socketHash?: string;
+    declare socket_hash?: string;
     declare readonly created_at: Date;
     declare readonly updated_at: Date;
 }
@@ -33,7 +33,7 @@ export const UserSubscriptions = UserSubscriptionsDeclaration.init({
       allowNull: false,
       defaultValue: 0
     },
-    socketHash: {
+    socket_hash: {
       type: DataTypes.STRING,
       allowNull: true
     },

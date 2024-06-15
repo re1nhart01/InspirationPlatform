@@ -23,7 +23,30 @@ export interface ISubscription {
     maker?: string;
     subscriber?: string;
     status?: number;
-    socketHash?: string;
+    socket_hash?: string;
     created_at?: Date;
     updated_at?: Date;
+}
+
+
+export interface IPost {
+    id: number;
+    owner: string;
+    type: number;
+    image?: string;
+    video?: string;
+    text: string;
+    caption: string;
+    like_id: string;
+    date_of_creation: Date;
+    data_count: number;
+}
+
+
+export interface ILike {
+    id: number;
+    creator: string;
+    post_hash: string;
+    initiator: string;
+    created_at: Date;
 }

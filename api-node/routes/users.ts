@@ -1,7 +1,8 @@
 import express from "express";
 import {authMiddleware, AuthRequest} from "../middleware/auth.middleware";
-import {UsersRepository} from "../services/service/user";
+import {UsersRepository} from "../services/service/user.service";
 import Requestor from "./../services/helpers/response";
+import {StatusCodes} from "http-status-codes";
 
 const router = express.Router()
 
@@ -9,7 +10,6 @@ const router = express.Router()
 router.get('/me', authMiddleware, async (req, res) => {
     try {
         const { username, email } = (<AuthRequest>req).user;
-            ///"http://" + c.Request.Host + "/storage/" + name + "/avatar/avatar.png"
         const resultMe = await UsersRepository.getMe(username);
         res.status(200).send({
             me: true,
@@ -32,8 +32,15 @@ router.get('/logout', function (req, res) {
   res.send('About birds');
 })
 
-router.get('/:userId', function (req, res) {
-    res.send('About birds');
+router.get('/:userId', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const { username } = (<AuthRequest><unknown>req).user;
+        const fullUserData = await UsersRepository.getFullUserData(userId, username);
+        res.status(200).send(Requestor.GiveOKResponseWithData(fullUserData));
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
 router.get('/:userId/subscribe', function (req, res) {

@@ -21,14 +21,17 @@ sequelize.sync({ logging: true }).then((v) => {
     console.log(v.getDatabaseName(), "IS SUCCESSFULLY RUNNED!")
 })
 
+const corsOption = {
+    origin: ['http://localhost:3000'],
+};
+
 const PORT = process.env.PORT;
 const app = express();
 
-
-app.use(express.static(path.join(__dirname, 'storage')));
+app.use(cors(corsOption));
+app.use("/storage", express.static(path.join(__dirname, 'storage')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 app.use("/auth", authRouter)
 app.use("/comments", commentsRouter)
 app.use("/likes", likesRouter)

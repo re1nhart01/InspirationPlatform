@@ -38,13 +38,13 @@ const PlainMessageView = (props: IProps) => {
   const renderStatus = () => {
     switch (props.currentStatus) {
       case MessageStatus.ErrorOnSending:
-        return <Image style={[StylesOne.wh100, StylesOne.rm_c, tintColor]} source={messageStatuses.error} />;
+        return <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={messageStatuses.error} />;
       case MessageStatus.AwaitForSending:
-        return <Image style={[StylesOne.wh100, StylesOne.rm_c, tintColor]} source={messageStatuses.awaiting} />;
+        return <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={messageStatuses.awaiting} />;
       case MessageStatus.SentToServer:
-        return <Image style={[StylesOne.wh100, StylesOne.rm_c, tintColor]} source={messageStatuses.sent} />;
+        return <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={messageStatuses.sent} />;
       case MessageStatus.ReadByUser:
-        return <Image style={[StylesOne.wh100, StylesOne.rm_c, tintGreen]} source={messageStatuses.read} />;
+        return <Image style={[StylesOne.wh100, StylesOne.rm_c]} source={messageStatuses.read} />;
     }
   };
 

@@ -262,6 +262,7 @@ export class UsersRepository {
             result.items = list;
             result.pageIndex = page;
             result.pageSize = limit
+            return result;
         } catch (e) {
             throw result;
         }

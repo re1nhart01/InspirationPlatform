@@ -309,9 +309,9 @@ class ReducersImpl {
         statusMessage: action.payload.statusMessage,
         data: storage,
         isMessageUpdate: 0,
-        totalPages: action.payload.data.totalPages,
-        pageSize: action.payload.data.pageSize,
-        pageIndex: action.payload.data.pageIndex,
+        totalPages: action.payload.data?.totalPages || 0,
+        pageSize: action.payload.data?.pageSize || 0,
+        pageIndex: action.payload.data?.pageIndex || 0,
       };
     } else if (action.type === ActionTypes.U2UMessagesPage) {
       const isValidMessages = action.payload.statusCode === 200 && Array.isArray(action.payload.data.items);

@@ -12,6 +12,7 @@ import searchRouter from "./routes/search";
 import settingsRouter from "./routes/settings";
 import usersRouter from "./routes/users";
 import * as path from "path";
+import {ChatWSRouter} from "./routes/chat/chat";
 
 dotenv.config({
     path: "./services/env/.env"
@@ -41,6 +42,8 @@ app.use("/search", searchRouter)
 app.use("/settings", settingsRouter)
 app.use("/users", usersRouter)
 
+const chatApi = new ChatWSRouter().init();
+app.use("/messaging", chatApi.httpRouter)
 
 app.get("/", (req, res) => {
     res.send({

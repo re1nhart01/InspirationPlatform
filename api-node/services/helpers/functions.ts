@@ -1,4 +1,5 @@
 import crypto from "crypto";
+import { pipe, split as splitR } from "ramda";
 
 
 export function print (path: any, layer: any) {
@@ -44,4 +45,20 @@ export const castParamWithExtendedValue = (params: { [key: string]: string }, ke
 
 export const hashString = (salt: string) => {
     return crypto.createHash('md5').update(salt).digest('hex');
+}
+
+///messaging/konoha/c3b92507e56380dc3c55549e7229a873?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InRva3lvX2dob3VsIiwiZW1haWwiOiJ0b2t5b19naG91bEB6eGMuenhjIiwiaWF0IjoxNzE4NDIyMTA4fQ.Xa6-EzVqDmSrgv-jgdjYLiLNC3zraJZd0qYRR8ZrotM
+export const parseUrlFromSocket = (url: string) => {
+    const result = {
+        chatHash: "",
+        token: "",
+    }
+    const splitF = splitR("/")(url);
+    const third = splitF[3]
+    if (third) {
+        const chatMisc = splitR("?token=")(third)
+        result.chatHash = chatMisc?.[0];
+        result.token = chatMisc?.[1];
+    }
+    return result;
 }

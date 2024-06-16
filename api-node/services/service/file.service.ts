@@ -33,4 +33,25 @@ export class FileRepository {
             return false;
         }
     }
+
+    public static async removeAvatar(username: string) {
+        try {
+            const postPath = path.join(__dirname, ".." ,"..", "storage", username, "avatar")
+            await fs.rm(path.join(postPath, "avatar.png"));
+            return true;
+        } catch (e) {
+            console.log("uploadAvatar", e);
+            throw false;
+        }
+    }
+
+    public static async uploadAvatar(username: string, image: Express.Multer.File) {
+        try {
+            const postPath = path.join(__dirname, ".." ,"..", "storage", username, "avatar")
+            await fs.writeFile(path.join(postPath, "avatar.png"), image.buffer);
+        } catch (e) {
+            console.log("uploadAvatar", e);
+            throw false;
+        }
+    }
 }

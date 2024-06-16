@@ -4,7 +4,7 @@ import {PostRepository} from "../services/service/post.service";
 import {defaultTo, isNil} from "ramda";
 import Requestor from "./../services/helpers/response";
 import {StatusCodes} from "http-status-codes";
-import {castParamWithExtendedValue, hashString} from "../services/helpers/functions";
+import {castParamWithExtendedValue, genRand, hashString} from "../services/helpers/functions";
 import {uploadFileMiddleware} from "../middleware/file.middleware";
 import {FileRepository} from "../services/service/file.service";
 import {UsersRepository} from "../services/service/user.service";
@@ -16,7 +16,7 @@ router.post('/add', authMiddleware, uploadFileMiddleware.array("image", 10), asy
         let files = req.files;
         const fileList = files && !Array.isArray(files) ? defaultTo([], files["image"]) : files;
         const { username } = (<AuthRequest>req).user;
-        const salt = [username, defaultTo(new Date().toString())].join("@")
+        const salt = [username, new Date().toString(), genRand(32)].join("@")
         const postHash = hashString(salt)
         const countOfFiles = defaultTo(0, files?.length as number);
         const isCreatedInFolder = await FileRepository.addFilesForPost(username, postHash, fileList!);

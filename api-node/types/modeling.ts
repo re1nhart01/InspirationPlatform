@@ -61,3 +61,15 @@ export interface IComment {
     created_at?: Date;
     updated_at?: Date;
 }
+
+
+export interface IChatData {
+    id: number;
+    sender: string;
+    companion: string;
+    created_at: number;
+    plain_message: string;
+    status: number;
+    type: number;
+    message_hash: string;
+}

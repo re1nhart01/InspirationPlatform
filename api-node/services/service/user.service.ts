@@ -1,13 +1,14 @@
 import {User, UserDeclaration} from "../../models/users";
 import {sequelize} from "../db/sql/driver";
 import {col, fn, Op, QueryTypes, where} from "sequelize";
-import {IFullUserResult} from "../../types/result";
+import {IFullUserResult, IMessagesPagingResult} from "../../types/result";
 import {Post} from "../../models/post";
 import {UserSubscriptions} from "../../models/subscription";
-import {defaultTo, isNil, isNotNil, not} from "ramda";
+import { defaultTo, isNil } from "ramda";
 import {nonChangeableParams} from "../helpers/constants";
 import {ISubscription} from "../../types/modeling";
 import {hashString} from "../helpers/functions";
+import {ChatData} from "../../models/chat";
 
 
 type ICounter = { owner_count: number; subscriber_count: number };
@@ -215,6 +216,54 @@ export class UsersRepository {
         } catch (e) {
             console.log(e);
             return null;
+        }
+    }
+
+    public static async getMessages(owner: string, to: string, page: number, init: boolean) {
+        const limit = 30
+        const result: IMessagesPagingResult = {
+            totalPages: 0,
+            isInit: false,
+            items: [],
+            pageIndex: 0,
+            pageSize: limit,
+        };
+        try {
+            const allMessagesCount = await ChatData.count({ where: {
+                [Op.or]: [
+                    {
+                        sender: owner,
+                        companion: to
+                    },
+                    {
+                        sender: to,
+                        companion: owner
+                    }
+                ]
+                } })
+            const totalPages = Math.ceil(allMessagesCount / limit);
+            const list = await ChatData.findAll({ where: {
+                    [Op.or]: [
+                        {
+                            sender: owner,
+                            companion: to
+                        },
+                        {
+                            sender: to,
+                            companion: owner
+                        }
+                    ]
+                },
+                limit,
+                offset: limit * page,
+            })
+            result.totalPages = totalPages;
+            result.isInit = init;
+            result.items = list;
+            result.pageIndex = page;
+            result.pageSize = limit
+        } catch (e) {
+            throw result;
         }
     }
 

@@ -1,6 +1,7 @@
 import {PostDeclaration} from "../models/post";
 import {UserDeclaration} from "../models/users";
 import {UserSubscriptionsDeclaration} from "../models/subscription";
+import {ChatDataDeclaration} from "../models/chat";
 
 
 export interface IFullUserResult {
@@ -16,4 +17,13 @@ export interface IFullUserResult {
 export interface ILikeBodyResult {
     isLiked: boolean;
     likesCount: number;
+}
+
+
+export interface IMessagesPagingResult {
+    "items":      ChatDataDeclaration[];
+    "pageSize":   number;
+    "isInit":     boolean;
+    "pageIndex":  number;
+    "totalPages": number;
 }

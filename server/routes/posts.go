@@ -27,7 +27,6 @@ func Posts(route *gin.Engine, db *database.DB, firebaseApp *messaging.Client) {
 			files := form.File["image"]
 			name, _, _ := utils.ParseHeader(c)
 			postName, _ := utils.GenerateHashWithSalt(name, files[0].Filename)
-			var a = 0
 			for key, value := range val {
 				fmt.Println(key, value)
 				if len(value) > 1 {
@@ -35,7 +34,6 @@ func Posts(route *gin.Engine, db *database.DB, firebaseApp *messaging.Client) {
 				} else {
 					requestData[key] = value[0]
 				}
-				a++
 				fmt.Println(reflect.TypeOf(key), key, value, val[key])
 			}
 			fileIndex := 0

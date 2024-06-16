@@ -35,7 +35,7 @@ export interface IPost {
     type: number;
     image?: string;
     video?: string;
-    text: string;
+    text?: string;
     caption: string;
     like_id: string;
     date_of_creation: Date;

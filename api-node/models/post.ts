@@ -7,16 +7,16 @@ import { IPost } from "../types/modeling";
 
 
 export class PostDeclaration extends Model<IPost, Optional<IPost, 'id'>> {
-    public id!: number;
-    public owner!: string;
-    public type!: number;
-    public image?: string;
-    public video?: string;
-    public text!: string;
-    public caption!: string;
-    public like_id!: string;
-    public date_of_creation!: Date;
-    public data_count!: number;
+    declare id: number;
+    declare owner: string;
+    declare type: number;
+    declare image?: string;
+    declare video?: string;
+    declare text?: string;
+    declare caption: string;
+    declare like_id: string;
+    declare date_of_creation: Date;
+    declare data_count: number;
 }
 
 

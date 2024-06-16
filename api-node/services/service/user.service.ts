@@ -137,8 +137,9 @@ export class UsersRepository {
             if (isNil(actualSubscription)) {
                 subscription.status = ownerUser?.is_private ? 1 : 2;
             } else {
-                subscription.status = 3;
                 const chat_hash = hashString([owner, subscriber, Date.now()].join("@"))
+                subscription.status = 3;
+                subscription.socket_hash = chat_hash;
                 await UserSubscriptions.update({ socket_hash: chat_hash, status: 3 }, { where: { maker: subscriber, subscriber: owner, status: { [Op.gt]: 1 } } })
             }
             await UserSubscriptions.create(subscription);
@@ -197,4 +198,24 @@ export class UsersRepository {
             return [];
         }
     }
+
+    public static async createPost(username: string, counterFiles: number, caption: string, type: number, postHash: string) {
+        try {
+            const post = await Post.create({
+                owner: username,
+                like_id: username,
+                type,
+                caption,
+                date_of_creation: new Date(),
+                data_count: counterFiles,
+                image: postHash,
+                text: postHash,
+            })
+            return post;
+        } catch (e) {
+            console.log(e);
+            return null;
+        }
+    }
+
 }

@@ -67,4 +67,13 @@ export class PostRepository {
         }
     }
 
+    public static async removePost(postHash: string, username: string) {
+        try {
+            await Post.destroy({ where: { image: postHash, owner: username } })
+            return "Accept"
+        } catch (e) {
+            return "Not Accept"
+        }
+    }
+
 }

@@ -73,19 +73,7 @@ const MyPost = (props: myPostProps) => {
   const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
 
 
-  const onPostDelete = useCallback(() => {
-    Alert.alert('Warning', 'This move irreversibly', [
-      {
-        text: 'Delete',
-        onPress: onAlertDeletePost,
-        style: 'destructive',
-      },
-      {
-        text: 'Cancel',
-        style: 'cancel',
-      },
-    ]);
-  }, [props]);
+
 
   const showModal = () => {
     setState({ ...getState, showModal: true, index: props.index });
@@ -109,6 +97,13 @@ const MyPost = (props: myPostProps) => {
     props.setReload!(2);
     props.makeRequest();
   }, [props.entity.image, props.entity.owner]);
+
+  const onPostDelete = useCallback(() => {
+    const isConfirmed = window.confirm("Warning, would you want to remove file?");
+    if (isConfirmed) {
+      onAlertDeletePost?.();
+    }
+  }, [onAlertDeletePost]);
 
 
   useEffect(() => {
@@ -144,13 +139,6 @@ const MyPost = (props: myPostProps) => {
               </View>
             </TouchableOpacity>
             <View style={[StylesOne.width70, StylesOne.flex_row, StylesOne.flex_jc_c]}>
-              {/*<LabelView*/}
-              {/*  styles={{*/}
-              {/*    text: [StylesFour.headerCarouselText],*/}
-              {/*    container: [StylesOne.h100],*/}
-              {/*  }}*/}
-              {/*  defaultText={getState.labelText}*/}
-              {/*/>*/}
             </View>
             {props.isMe && <TouchableOpacity
               activeOpacity={0.8}

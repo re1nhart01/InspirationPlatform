@@ -1,16 +1,33 @@
 import express from "express";
 import {authMiddleware, AuthRequest} from "../middleware/auth.middleware";
 import {PostRepository} from "../services/service/post.service";
-import {isNil} from "ramda";
+import {defaultTo, isNil} from "ramda";
 import Requestor from "./../services/helpers/response";
 import {StatusCodes} from "http-status-codes";
-import {castParamWithExtendedValue} from "../services/helpers/functions";
+import {castParamWithExtendedValue, hashString} from "../services/helpers/functions";
+import {uploadFileMiddleware} from "../middleware/file.middleware";
+import {FileRepository} from "../services/service/file.service";
+import {UsersRepository} from "../services/service/user.service";
 
 const router = express.Router()
 
-
-router.post('/add', function(req, res) {
-  res.send('Birds home page');
+router.post('/add', authMiddleware, uploadFileMiddleware.array("image", 10), async (req, res) => {
+    try {
+        let files = req.files;
+        const fileList = files && !Array.isArray(files) ? defaultTo([], files["image"]) : files;
+        const { username } = (<AuthRequest>req).user;
+        const salt = [username, defaultTo(new Date().toString())].join("@")
+        const postHash = hashString(salt)
+        const countOfFiles = defaultTo(0, files?.length as number);
+        const isCreatedInFolder = await FileRepository.addFilesForPost(username, postHash, fileList!);
+        const newPost = await UsersRepository.createPost(username, countOfFiles, req.body.caption, +req.body.type, postHash)
+        res.status(200).send({
+            isGood: isCreatedInFolder ? "Good" : "Bad",
+            data: newPost,
+        })
+    } catch (e) {
+        res.status(StatusCodes.FORBIDDEN).send(Requestor.GiveResponse(StatusCodes.FORBIDDEN, "FORBIDDEN"))
+    }
 });
 
 
@@ -28,8 +45,16 @@ router.get('/me', authMiddleware, async (req, res) => {
     }
 });
 
-router.post('/delete', function(req, res) {
-    res.send('About birds');
+router.post('/delete', authMiddleware, async (req, res) => {
+    try {
+        const { username } = (<AuthRequest>req).user;
+        const postHash = req.body.hash;
+        await PostRepository.removePost(postHash, username);
+        await FileRepository.removePostFolder(username, postHash);
+        res.status(200).send(Requestor.GiveOKResponse());
+    } catch (e) {
+        res.status(StatusCodes.FORBIDDEN).send(Requestor.GiveResponse(StatusCodes.FORBIDDEN, "FORBIDDEN"))
+    }
 });
 
 router.get('/getNewsline', authMiddleware, async (req, res) => {

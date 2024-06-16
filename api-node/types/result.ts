@@ -1,12 +1,14 @@
 import {PostDeclaration} from "../models/post";
 import {UserDeclaration} from "../models/users";
+import {UserSubscriptionsDeclaration} from "../models/subscription";
 
 
 export interface IFullUserResult {
     userPosts: Array<PostDeclaration>;
     isPrivate: boolean;
     userData: UserDeclaration | null;
-    isSubscribed: boolean;
+    isSubscribed: UserSubscriptionsDeclaration | null;
+    isSubscribe: boolean;
     counts: { owner_count: number; subscriber_count: number; }
 }
 

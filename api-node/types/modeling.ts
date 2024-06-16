@@ -50,3 +50,14 @@ export interface ILike {
     initiator: string;
     created_at: Date;
 }
+
+
+export interface IComment {
+    id: number;
+    creator: string;
+    comment_hash: string;
+    post_hash: string;
+    comment_string: string;
+    created_at?: Date;
+    updated_at?: Date;
+}

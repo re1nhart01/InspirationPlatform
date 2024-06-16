@@ -4,8 +4,10 @@ import {col, fn, Op, QueryTypes, where} from "sequelize";
 import {IFullUserResult} from "../../types/result";
 import {Post} from "../../models/post";
 import {UserSubscriptions} from "../../models/subscription";
-import {defaultTo, isNotNil, not} from "ramda";
+import {defaultTo, isNil, isNotNil, not} from "ramda";
 import {nonChangeableParams} from "../helpers/constants";
+import {ISubscription} from "../../types/modeling";
+import {hashString} from "../helpers/functions";
 
 
 type ICounter = { owner_count: number; subscriber_count: number };
@@ -53,24 +55,26 @@ export class UsersRepository {
             isPrivate: false,
             userData: null,
             userPosts: [],
-            isSubscribed: false,
+            isSubscribe: false,
+            isSubscribed: null,
             counts: {
                 owner_count: 0,
                 subscriber_count: 0,
             }
         }
         try {
-            result.userData = await User.findOne({ where: { username }, attributes: { exclude: [ "password", "token" ] } });
+            result.userData = await User.findOne({ where: { username: userId }, attributes: { exclude: [ "password", "token" ] } });
             result.counts = await UsersRepository.getCounters(userId);
+            const subscription = await UserSubscriptions.findOne({ where: { maker: userId, subscriber: username } })
             if (result.userData) {
-                const subscription = await UserSubscriptions.findOne({ where: { maker: userId, subscriber: username } })
-                const conditionToShowPosts = (result.userData.is_private && subscription?.status! > 2) || !result.userData.is_private;
+                const conditionToShowPosts = !result.userData.is_private || (result.userData.is_private && subscription?.status! > 2);
                 if (conditionToShowPosts) {
                     result.userPosts = await Post.findAll({ where: { owner: userId } })
                 }
                 result.isPrivate = !conditionToShowPosts;
-                result.isSubscribed = isNotNil(subscription);
+                result.isSubscribe = !!subscription;
             }
+            result.isSubscribed = subscription;
             return result;
         } catch (e) {
             throw result;
@@ -106,4 +110,91 @@ export class UsersRepository {
         }
     }
 
+    public static async removeUserToken(username: string) {
+        try {
+            await User.update({ token: "" }, { where: { username } })
+            return "";
+        } catch (e: any) {
+            throw e?.toString()
+        }
+    }
+
+    public static async handleUserSubscription(owner: string, subscriber: string) {
+        try {
+            const subscription: ISubscription = {
+                maker: owner,
+                subscriber: subscriber,
+                created_at: new Date(),
+                updated_at: new Date(),
+            }
+            const ownerUser = await User.findOne({ where: { username: owner } });
+            const subscriptionCounts = await UserSubscriptions.count({ where: { maker: owner, subscriber } });
+            if (subscriptionCounts !== 0 || owner === subscriber) {
+                return false;
+            }
+
+            const actualSubscription = await UserSubscriptions.findOne({ where: { maker: subscriber, subscriber: owner, status: { [Op.gt]: 1 } } })
+            if (isNil(actualSubscription)) {
+                subscription.status = ownerUser?.is_private ? 1 : 2;
+            } else {
+                subscription.status = 3;
+                const chat_hash = hashString([owner, subscriber, Date.now()].join("@"))
+                await UserSubscriptions.update({ socket_hash: chat_hash, status: 3 }, { where: { maker: subscriber, subscriber: owner, status: { [Op.gt]: 1 } } })
+            }
+            await UserSubscriptions.create(subscription);
+
+            return true;
+        } catch (e) {
+            console.log(e);
+            throw false;
+        }
+    }
+
+    public static async removeSubscription(maker: string, subscriber: string) {
+        try {
+            await UserSubscriptions.destroy({ where: { maker, subscriber } })
+            return true;
+        } catch (e) {
+            throw false;
+        }
+    }
+
+    public static async acceptRequestOnSubscription(owner: string, username: string, accepted: boolean) {
+        try {
+            if (accepted) {
+                await UserSubscriptions.update({ status: 2 }, { where: { maker: owner, subscriber: username } });
+            } else {
+                await UserSubscriptions.destroy({ where: { maker: owner, subscriber: username } });
+            }
+            return true;
+        } catch (e) {
+            throw false;
+        }
+    }
+
+    public static async getRequestList(username: string) {
+        try {
+            const [result] = await sequelize.query(`
+		SELECT * FROM user_subscription
+		INNER JOIN (SELECT full_name, username, email, description FROM users)
+		AS user_rows ON user_subscription.subscriber = user_rows.username
+		AND user_subscription.maker = ? AND user_subscription.status = 1`, {replacements: [ username ]})
+            return result;
+        } catch (e) {
+            return [];
+        }
+    }
+
+    public static async getSubscriptionList(type1: "maker" | "subscriber", type2: "maker" | "subscriber", subscriber: string) {
+        try {
+            const [result] = await sequelize.query(`
+		SELECT * FROM user_subscription
+		INNER JOIN (SELECT full_name, username, email, description FROM users)
+		AS user_rows ON user_subscription.${type2} = user_rows.username
+		AND user_subscription.${type1} = ?`, { replacements: [subscriber] })
+            return result;
+        } catch (e) {
+            return [];
+        }
+    }
 }

@@ -120,7 +120,7 @@ const UserProfileComponent = (state: IProps) => {
                         <Image style={St.imgIcon} source={images.personalSite} />
                     </TouchableOpacity>
                 </View>
-                    {state.user?.isSubscribed?.socket_hash !== '' ? <TouchableOpacity onPress={state.goToChatScreen} activeOpacity={0.7} style={[StylesOne.flex_row, StylesOne.flex_ai_c, StylesOne.flex_jc_c, {backgroundColor: colors.Chalise , borderRadius: 8, width: "40%", height: mockupHeightToDP(40)}]}>
+                    {!!state.user?.isSubscribed?.socket_hash ? <TouchableOpacity onPress={state.goToChatScreen} activeOpacity={0.7} style={[StylesOne.flex_row, StylesOne.flex_ai_c, StylesOne.flex_jc_c, {backgroundColor: colors.Chalise , borderRadius: 8, width: "40%", height: mockupHeightToDP(40)}]}>
                         <Image style={[StylesOne.image25, MP.mr5, {tintColor: colors.blurWhite}]} source={images.message2} />
                         <Text style={[St.ownerTextWithoutOffsets, {marginBottom: 2, color: colors.blurWhite, fontWeight: "600"}]}>Message</Text>
                     </TouchableOpacity> : null}

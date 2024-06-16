@@ -3,6 +3,7 @@ import {authMiddleware, AuthRequest} from "../middleware/auth.middleware";
 import {UsersRepository} from "../services/service/user.service";
 import Requestor from "./../services/helpers/response";
 import {StatusCodes} from "http-status-codes";
+import {UserSubscriptions} from "../models/subscription";
 
 const router = express.Router()
 
@@ -24,12 +25,22 @@ router.get('/me', authMiddleware, async (req, res) => {
 });
 
 
-router.get('/check', function(req, res) {
-  res.send('About birds');
-});
+router.get('/check', authMiddleware, async (req, res) => {
+    try {
 
-router.get('/logout', function (req, res) {
-  res.send('About birds');
+    } catch (e) {
+
+    }
+})
+
+router.get('/logout', authMiddleware, async (req, res) => {
+    try {
+        const { username } = (<AuthRequest><unknown>req).user;
+        await UsersRepository.removeUserToken(username);
+        res.status(200).send(Requestor.GiveOKResponse());
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
 router.get('/:userId', authMiddleware, async (req, res) => {
@@ -43,28 +54,80 @@ router.get('/:userId', authMiddleware, async (req, res) => {
     }
 })
 
-router.get('/:userId/subscribe', function (req, res) {
-    res.send('About birds');
+router.get('/:userId/subscribe', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const { username } = (<AuthRequest><unknown>req).user;
+        const isCreated = await UsersRepository.handleUserSubscription(userId, username);
+        res.status(200).send(Requestor.GiveOKResponseWithData({
+            "owner":      userId,
+            "subscriber": username,
+            isCreated,
+        }))
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
-router.get('/:userId/unfollow', function (req, res) {
-    res.send('About birds');
+router.get('/:userId/unfollow', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const { username } = (<AuthRequest><unknown>req).user;
+        const result = await UsersRepository.removeSubscription(userId, username);
+        res.status(200).send(Requestor.GiveOKResponseWithData({
+            "owner":      userId,
+            "subscriber": username,
+            result,
+        }))
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
-router.post('/:userId/acceptRequest', function (req, res) {
-    res.send('About birds');
+router.post('/:userId/acceptRequest', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const { username } = (<AuthRequest><unknown>req).user;
+        const isAccepted = req.body.status;
+        const result = await UsersRepository.acceptRequestOnSubscription(username, userId, isAccepted);
+        res.status(200).send(Requestor.GiveOKResponseWithData({
+            "owner":      userId,
+            "subscriber": username,
+            result,
+        }))
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
-router.post('/requestList', function (req, res) {
-    res.send('About birds');
+router.post('/requestList', authMiddleware, async (req, res) => {
+    try {
+        const { username } = (<AuthRequest><unknown>req).user;
+        const responseList = await UsersRepository.getRequestList(username);
+        res.status(200).send(Requestor.GiveOKResponseWithData(responseList));
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
-router.get('/:userId/following', function (req, res) {
-    res.send('About birds');
+router.get('/:userId/following', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const list = await UsersRepository.getSubscriptionList("subscriber", "maker", userId);
+        res.status(200).send(Requestor.GiveOKResponseWithData(list))
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
-router.get('/:userId/followers', function (req, res) {
-    res.send('About birds');
+router.get('/:userId/followers', authMiddleware, async (req, res) => {
+    try {
+        const userId = req.params.userId;
+        const list = await UsersRepository.getSubscriptionList("maker", "subscriber", userId);
+        res.status(200).send(Requestor.GiveOKResponseWithData(list))
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
 })
 
 

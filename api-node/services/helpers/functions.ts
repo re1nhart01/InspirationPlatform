@@ -1,3 +1,6 @@
+import crypto from "crypto";
+
+
 export function print (path: any, layer: any) {
     if (layer.route) {
       layer.route.stack.forEach(print.bind(null, path.concat(split(layer.route.path))))
@@ -36,4 +39,9 @@ export function isValidEmail(email: string) {
 
 export const castParamWithExtendedValue = (params: { [key: string]: string }, key: string) => {
     return params[key] || ""
+}
+
+
+export const hashString = (salt: string) => {
+    return crypto.createHash('md5').update(salt).digest('hex');
 }

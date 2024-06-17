@@ -460,7 +460,7 @@ class ReducersImpl {
           data: action.payload?.data || [],
         };
       } else {
-        Alert.alert('Notifications', 'Something went wrong :(');
+        alert('Notifications, Something went wrong :(');
         return state;
       }
     }

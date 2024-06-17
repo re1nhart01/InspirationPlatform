@@ -68,7 +68,7 @@ export class UsersRepository {
             result.counts = await UsersRepository.getCounters(userId);
             const subscription = await UserSubscriptions.findOne({ where: { maker: userId, subscriber: username } })
             if (result.userData) {
-                const conditionToShowPosts = !result.userData.is_private || (result.userData.is_private && subscription?.status! > 2);
+                const conditionToShowPosts = !result.userData.is_private || (result.userData.is_private && subscription?.status! >= 2);
                 if (conditionToShowPosts) {
                     result.userPosts = await Post.findAll({ where: { owner: userId } })
                 }

@@ -110,11 +110,11 @@ const MyPost = (props: myPostProps) => {
     if (state?.statusCode !== void 0) {
       if (state?.statusCode === 200 && getState.index === props.index) {
         setState({ ...getState, showModal: false, index: -1 });
-        Alert.alert('Accepted', 'Post was delete successfully');
+        alert('Accepted, Post was delete successfully');
         dispatch(actionImpl.getMe());
       }
       if (state.statusCode === 423 && getState.index === props.index) {
-        Alert.alert('Error!', 'Something went wrong');
+        alert('Error!, Something went wrong');
       }
       if (state.statusCode === 0 && getState.index === props.index) {
         return;

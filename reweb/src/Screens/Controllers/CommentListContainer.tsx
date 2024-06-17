@@ -42,7 +42,7 @@ function CommentListContainer(props: IProps) {
         activeOpacity: 0,
         clearOnPress: true,
     }
-    
+
     const onRefresh = () => {
         setState({...getState, refresh: true})
         dispatch(actionImpl.getComments(id))
@@ -51,7 +51,7 @@ function CommentListContainer(props: IProps) {
 
     function onButtonPress(currentInputValue: string) {
         if (currentInputValue.length < 5) {
-            Alert.alert("Warning!", "Length of your comment can't be less than 5 characters!")
+            alert("Warning!, Length of your comment can't be less than 5 characters!")
             return;
         }
         const body = {
@@ -78,12 +78,12 @@ function CommentListContainer(props: IProps) {
                 return
             } else if (store.statusCode !== 0) {
                 setState({...getState, isLoading: false})
-                Alert.alert("Error! Something went wrong :(", store.statusCode.toString());
+                alert("Error! Something went wrong :(" + `${store?.statusCode?.toString()}`);
             }
         }
     } catch (exception) {
         setState({...getState, isLoading: false})
-        Alert.alert("Error! Something went wrong :(");
+        alert("Error! Something went wrong :(");
     }
     }, [store, store.isModify])
 

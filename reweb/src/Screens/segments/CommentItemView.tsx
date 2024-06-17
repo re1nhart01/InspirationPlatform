@@ -61,7 +61,7 @@ export function CommentItemView(props: IProps): JSX.Element {
 
   const onUpdateSavePress = () => {
     if (getState.inputValue.length < 5) {
-      Alert.alert('Warning!', "Length of your comment can't be less than 5 characters!");
+      alert("Warning!, Length of your comment can't be less than 5 characters!");
       return;
     }
     const body = {

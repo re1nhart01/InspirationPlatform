@@ -37,7 +37,7 @@ const SignUpComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegiste
     }
 
     function onTermOfUserHandler() {
-        Alert.alert('Be carefully on using this app :)')
+        alert('Be carefully on using this app :)')
     }
 
     // useEffect(() => {
@@ -54,27 +54,27 @@ const SignUpComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegiste
         try {
             const { about, birth, cPassword, checkbox, email, fName, gender, location, name, password, refer, site } = getter
             if (email === ' ' || email === '' ) {
-                Alert.alert("Warning! Email can not be empty");
+                alert("Warning! Email can not be empty");
                 return;
             }
             if (fName === ' ' || fName === '') {
-                Alert.alert("Warning! Full Name can not be empty");
+                alert("Warning! Full Name can not be empty");
                 return;
             }
             if (gender === ' ' || gender === '') {
-                Alert.alert("Warning! Gender can not be empty");
+                alert("Warning! Gender can not be empty");
                 return;
             }
             if (location === ' ' || location === '') {
-                Alert.alert("Warning! Location can not be empty");
+                alert("Warning! Location can not be empty");
                 return;
             }
             if (name === ' ' || name === '') {
-                Alert.alert("Warning! Username can not be empty");
+                alert("Warning! Username can not be empty");
                 return;
             }
             if (password === ' ' || password === '') {
-                Alert.alert("Warning! Password can not be empty");
+                alert("Warning! Password can not be empty");
                 return;
             }
             await onRegisterPress?.()
@@ -89,15 +89,15 @@ const SignUpComponent: React.FC<IProps> = ({ scrollToIndex, pipeState, onRegiste
             const password = getter.password;
             const cPassword = getter.cPassword;
             if (username.length <= 6) {
-                Alert.alert("Warning!", "Invalid username! Username should be longer than 6 symbols")
+                alert("Warning!, Invalid username! Username should be longer than 6 symbols")
                 return;
             }
             if (password.length <= 8) {
-                Alert.alert("Warning!", "Invalid password! Password should be longer than 8 symbols")
+                alert("Warning!, Invalid password! Password should be longer than 8 symbols")
                 return;
             }
             if (password.trim() !== cPassword.trim()) {
-                Alert.alert("Warning!", "Invalid password! Passwords are not similar!")
+                alert("Warning!, Invalid password! Passwords are not similar!")
                 return;
             }
             scrollToIndex(1);

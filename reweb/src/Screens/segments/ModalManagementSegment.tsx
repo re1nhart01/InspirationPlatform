@@ -94,7 +94,7 @@ const ModalManagementSegment = (props: IProps) => {
 
   useEffect(() => {
     if (store.setParamReducer.statusCode === 423) {
-      Alert.alert('Oops', 'Something went wrong');
+      alert('Oops, Something went wrong');
     }
   }, [store.setParamReducer]);
 

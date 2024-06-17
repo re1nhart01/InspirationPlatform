@@ -23,11 +23,11 @@ class CurrentUserProps {
 
   public authorize = async (username: string, password: string, preloader?: (value: boolean) => void) => {
     if (username === void 0 || username === null || username === '' || username === ' ') {
-      Alert.alert('Warning!', 'Username is invalid');
+      alert('Warning!, Username is invalid');
       return;
     }
     if (password === void 0 || password === null || password === '' || password === ' ') {
-      Alert.alert('Warning!', 'Password is invalid');
+      alert('Warning!, Password is invalid');
       return;
     }
     if (preloader) {
@@ -47,7 +47,7 @@ class CurrentUserProps {
         preloader(false);
       }
       console.warn(response);
-      Alert.alert('Warning!', response.statusMessage);
+      alert('Warning!' + `${response?.statusMessage}`);
       return;
     }
   };

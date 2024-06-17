@@ -34,11 +34,11 @@ const SignInComponent = (props: IProps) => {
     const username = getState.username;
     const password = getState.password;
     if (username === void 0 || username === null || username === '' || username === ' ') {
-      Alert.alert('Warning!', 'Username is invalid');
+      alert('Warning!, Username is invalid');
       return;
     }
     if (password === void 0 || password === null || password === '' || password === ' ') {
-      Alert.alert('Warning!', 'Password is invalid');
+      alert('Warning!, Password is invalid');
       return;
     }
     await currentUser.authorize(username, password);

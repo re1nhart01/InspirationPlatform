@@ -25,6 +25,16 @@ router.get('/me', authMiddleware, async (req, res) => {
 });
 
 
+router.get('/requestList', authMiddleware, async (req, res) => {
+    try {
+        const { username } = (<AuthRequest><unknown>req).user;
+        const responseList = await UsersRepository.getRequestList(username);
+        res.status(200).send(Requestor.GiveOKResponseWithData(responseList));
+    } catch (e) {
+        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
+    }
+})
+
 router.get('/check', authMiddleware, async (req, res) => {
     try {
 
@@ -95,16 +105,6 @@ router.post('/:userId/acceptRequest', authMiddleware, async (req, res) => {
             "subscriber": username,
             result,
         }))
-    } catch (e) {
-        res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
-    }
-})
-
-router.post('/requestList', authMiddleware, async (req, res) => {
-    try {
-        const { username } = (<AuthRequest><unknown>req).user;
-        const responseList = await UsersRepository.getRequestList(username);
-        res.status(200).send(Requestor.GiveOKResponseWithData(responseList));
     } catch (e) {
         res.status(StatusCodes.BAD_REQUEST).send(Requestor.GiveResponse(StatusCodes.BAD_REQUEST, "BAD REQUEST"))
     }

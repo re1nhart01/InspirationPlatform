@@ -72,7 +72,7 @@ const MenuContainer: React.FC<IProps> = (props: IProps): JSX.Element => {
           setMenuState({ ...menuState, data: [...menuState.data, ...state[0].data] });
           setIsRequested(false);
         } else {
-          Alert.alert('Error!', 'Something went wrong');
+          alert('Error!, Something went wrong');
         }
       } else {
         setMenuState({ ...menuState, data: [] });

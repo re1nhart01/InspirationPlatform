@@ -124,16 +124,8 @@ const MessageOptionsModal = forwardRef<unknown, IProps>(({  onDeleteMessagePress
             onRequestClose={hide}>
             <TouchableOpacity activeOpacity={1} onPress={hide} style={[StylesOne.wh100, backgrounds.bg_modal]}>
                 <TouchableOpacity style={[StylesOne.flex_column, StylesOne.flex_jc_sa, StylesOne.flex_ai_c, { width: mockupWidthToDP(156), height: mockupHeightToDP(150), backgroundColor: colors.SignIn_Font, position: 'absolute', left: getState.coords.x, top: getState.coords.y, borderRadius: 16 }]} activeOpacity={1} onPress={() => { }}>
-                    <TouchableOpacity onPress={onUpdatePress} style={[StylesOne.w100, StylesOne.flexCenter]}>
-                        <Text style={StylesFour.myNewsLine_owner}>Update</Text>
-                    </TouchableOpacity>
-                    <View style={[StylesOne.horizontalLine]} />
                     <TouchableOpacity onPress={onCopyPress} style={[StylesOne.w100, StylesOne.flexCenter]}>
                         <Text style={StylesFour.myNewsLine_owner}>Copy</Text>
-                    </TouchableOpacity>
-                    <View style={[StylesOne.horizontalLine]} />
-                    <TouchableOpacity onPress={onDeletePress} style={[StylesOne.w100, StylesOne.flexCenter]}>
-                        <Text style={[StylesFour.myNewsLine_owner, {color: 'red'}]}>Delete</Text>
                     </TouchableOpacity>
                 </TouchableOpacity>
             </TouchableOpacity>

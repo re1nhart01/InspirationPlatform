@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Action, ActionTypes } from '../types/ActionTypes';
 import { BaseAction } from './BaseAction';
 //90 - 92 = MAC OS
-export const apiURL = '192.168.1.184:8080'
+export const apiURL = '13.51.206.224:8080'
 interface ActionMethods {
   getMe(): (dispatch: Dispatch<Action>) => {};
   getMyPosts(): (dispatch: Dispatch<Action>) => {};
